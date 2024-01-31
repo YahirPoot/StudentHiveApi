@@ -24,7 +24,7 @@ namespace StudentHive.Controllers.V1
         {
             return Ok( _usersService.GetAll() );
         }
-        //error container 
+
         [HttpGet("{id:int}")]
         public IActionResult GetById([FromRoute]int id) //? <--- the same with this
         {
@@ -41,7 +41,7 @@ namespace StudentHive.Controllers.V1
             _usersService.Add( user ); //* <--- here i´m using the rentalHouseService :) 
             return CreatedAtAction( nameof( GetById ), new { id = user.UserId }, user );
         }
-        //error container 
+
         [HttpPut]
         public IActionResult Update( int id, User user )
         {
