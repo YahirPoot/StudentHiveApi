@@ -50,7 +50,7 @@ namespace StudentHive.Controller.V1
         [HttpDelete("{id}")] // this only define the route 
         public IActionResult Delete( int id )  
         {
-            _rentalHouseService.delete( id );
+            _rentalHouseService.Delete( id );
             return NoContent();
         }
     }

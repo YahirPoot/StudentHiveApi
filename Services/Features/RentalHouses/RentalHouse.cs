@@ -4,11 +4,13 @@ namespace StudentHive.Services.Features.RentalHouses;
 
     public class RentalHouseService 
     {
-        private readonly List<RentalHouse> _RentalHouses;// readonly is similar to final of Dart
+        //we are going to use this list to store all the RentalHouses
+        private readonly List<RentalHouse> _RentalHouses;// readonly is similar to final of Dart 
+        
 
         public RentalHouseService() // _RentalHouses added in the constructor class
         {
-            _RentalHouses = new(); // i just initialed  the variable to won´t be null 
+            _RentalHouses = new(); // i just initialed  the variable so that it is not null. 
         }
 
         public IEnumerable<RentalHouse> GetAll() //IEnumerable is to iterate a list - similar to a mapper   
@@ -41,7 +43,7 @@ namespace StudentHive.Services.Features.RentalHouses;
             }
         }
 
-        public void delete( int id )
+        public void Delete( int id )
         {
             var rentalHouse = GetById( id );
             if( rentalHouse != null ){
