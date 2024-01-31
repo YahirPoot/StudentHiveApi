@@ -47,7 +47,7 @@ namespace StudentHive.Services.Features.RentalHouses;
         {
             var rentalHouse = GetById( id );
             if( rentalHouse != null ){
-                _RentalHouses.Remove(rentalHouse);
+                _RentalHouses.Remove(rentalHouse); //we are using the reference from de method GetById.
             }
         }
     }

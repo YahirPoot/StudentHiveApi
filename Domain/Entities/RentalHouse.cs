@@ -27,7 +27,7 @@ public class RentalHouse{
         public required Service service { get; set; }
         // [Required]
         // [ForeignKey("UserId")]
-        public required User User { get; set; }    
+        public required string IdUser { get; set; }    
 }
 
 
