@@ -1,12 +1,16 @@
+using StudentHive.Domain.Entities;
 using StudentHive.Services.Features.RentalHouses;
+using StudentHive.Services.Features.Users;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //container services
 
 builder.Services.AddScoped<RentalHouseService>(); //<--- services added 
+builder.Services.AddScoped<UsersService>(); //<--- services added 
 
 builder.Services.AddSingleton<RentalHouseService>(); //<--- services added 
+builder.Services.AddSingleton<UsersService>(); //<--- services added 
 
 builder.Services.AddControllers(); //<--- services added 
 

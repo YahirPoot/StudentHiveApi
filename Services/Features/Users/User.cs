@@ -18,7 +18,7 @@ public class UsersService
 
     public User GetById( int id )//* The user will add the id to find a user from the list _User.id
     {
-        var user = _Users.FirstOrDefault( usr => usr.UserId == id );
+        var user = _Users.FirstOrDefault( usr => usr.UserId == id ); //? will return a true o false?
 
         if( user == null ){
             throw new InvalidOperationException($"User with ID {id} not found.");
