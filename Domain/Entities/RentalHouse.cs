@@ -1,9 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using StudentHive.domain.entities;
-using StudentHive.Domain.Entities;
-
-namespace StudentHive.Domain.entities;
+namespace StudentHive.Domain.Entities;
 
 public class RentalHouse{
 
@@ -27,11 +22,11 @@ public class RentalHouse{
         public required Location Location { get; set; }
         public decimal RentPrice { get; set; }
         public DateTime PublicationDate { get; set; }
-
         // [Required(ErrorMessage = "Service is required")]
         // [ForeignKey("ServiceId")]
         public required Service service { get; set; }
-        
+        // [Required]
+        // [ForeignKey("UserId")]
         public required User User { get; set; }    
 }
 

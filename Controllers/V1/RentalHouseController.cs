@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StudentHive.Domain.entities;
+using StudentHive.Domain.Entities;
 using StudentHive.Services.Features.RentalHouses;
 
 namespace StudentHive.Controller.V1
@@ -51,8 +47,8 @@ namespace StudentHive.Controller.V1
             return NoContent();
         }
 
-        [HttpDelete("{id}")] //? <--- i don´t know nothing of this. i think this is to create the url from the api
-        public IActionResult Delete( int id )
+        [HttpDelete("{id}")] // this only define the route 
+        public IActionResult Delete( int id )  
         {
             _rentalHouseService.delete( id );
             return NoContent();

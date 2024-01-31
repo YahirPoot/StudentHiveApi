@@ -1,4 +1,4 @@
-namespace StudentHive.domain.entities;
+namespace StudentHive.Domain.Entities;
 
 public class Location
     {

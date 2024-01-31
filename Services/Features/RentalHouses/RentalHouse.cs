@@ -1,4 +1,4 @@
-using StudentHive.Domain.entities;
+using StudentHive.Domain.Entities;
 
 namespace StudentHive.Services.Features.RentalHouses;
 

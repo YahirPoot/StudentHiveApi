@@ -1,8 +1,8 @@
+namespace StudentHive.Domain.Entities;
 public class User{
-    public required int User_Id;
-    public required string Email;
-    public required string Password;
-    public required string Name; 
-    public required string LastName; 
-
+    public required int UserId { get; set; }
+    public required string Email { get; set; }
+    public required string Password { get; set; }
+    public required string Name { get; set; }
+    public required string LastName { get; set; }
 }
