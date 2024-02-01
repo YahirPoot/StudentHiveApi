@@ -1,4 +1,4 @@
-using static StudentHive.Domain.Entities.User;
+using StudentHive.Domain.Entities;
 
 namespace StudentHive.Domain.Dtos;
 //all the i need to create an user

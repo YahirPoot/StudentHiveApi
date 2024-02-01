@@ -11,9 +11,9 @@ public class User{ // como podría crear mi userDTO y mi userCreateDTO.
     public required string ProfilePhotoUrl { get; set; }
     public required Gender GenderU { get; set; }
 
+}
     public enum Gender
     {
         Male,
         Female
     }
-}

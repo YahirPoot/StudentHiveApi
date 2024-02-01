@@ -19,6 +19,7 @@ public class RentalHouse{
         public bool SharedRoom { get; set; }
         public int NumberOfGuests { get; set; }
         public int NumberOfBathrooms { get; set; }
+        
         public required Location Location { get; set; }
         public decimal RentPrice { get; set; }
         public DateTime PublicationDate { get; set; }
