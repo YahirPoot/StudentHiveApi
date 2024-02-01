@@ -10,11 +10,8 @@ public class ResponseMappingProfile : Profile
     {
         CreateMap<User,UserDTO>();
 
-        CreateMap<RentalHouse,RentalHouseDTO>()
-        .ForMember(
-            dest => dest.PublicationDate,
-            opt => opt.MapFrom( src => src.PublicationDate.DayOfWeek )
-        );
-    
+        CreateMap<RentalHouse,RentalHouseDTO>();
+
+        
     }
 }

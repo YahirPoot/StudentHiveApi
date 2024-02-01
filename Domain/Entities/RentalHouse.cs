@@ -21,7 +21,8 @@ public class RentalHouse{
         public int NumberOfBathrooms { get; set; }
         
         public required Location Location { get; set; }
-        public decimal RentPrice { get; set; }
+        public int RentPrice { get; set; }
+        public bool Status { get; set; }
         public DateTime PublicationDate { get; set; }
         // [Required(ErrorMessage = "Service is required")]
         // [ForeignKey("ServiceId")]

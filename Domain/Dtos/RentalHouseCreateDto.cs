@@ -10,7 +10,7 @@ public class RentalHouseCreateDTO{
         public int NumberOfGuests { get; set; }
         public int NumberOfBathrooms { get; set; }
         public LocationDTO Location { get; set; } = null!;
-        public decimal RentPrice { get; set; }
+        public int RentPrice { get; set; }
         public HouserServiceDTO Service { get; set; } = null!;
         public int ID_User { get; set; }    
 }
