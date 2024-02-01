@@ -5,7 +5,7 @@ using StudentHive.Services.Features.Users;
 var builder = WebApplication.CreateBuilder(args);
 
 //container services
-
+//TODO: Agregar mis repositorios
 builder.Services.AddScoped<RentalHouseService>(); //<--- services added 
 builder.Services.AddScoped<UsersService>(); //<--- services added 
 

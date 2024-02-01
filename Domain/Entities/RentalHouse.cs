@@ -24,7 +24,7 @@ public class RentalHouse{
         public DateTime PublicationDate { get; set; }
         // [Required(ErrorMessage = "Service is required")]
         // [ForeignKey("ServiceId")]
-        public required Service service { get; set; }
+        public required HouseService service { get; set; }
         // [Required]
         // [ForeignKey("UserId")]
         public required int ID_User { get; set; }    

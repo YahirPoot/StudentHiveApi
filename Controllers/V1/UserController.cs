@@ -39,13 +39,13 @@ namespace StudentHive.Controllers.V1
         public IActionResult Add([FromBody] User user)  //? <--- i don´t know nothing of this.
         {
             _usersService.Add( user ); //* <--- here i´m using the rentalHouseService :) 
-            return CreatedAtAction( nameof( GetById ), new { id = user.UserId }, user );
+            return CreatedAtAction( nameof( GetById ), new { id = user.ID_User }, user );
         }
 
         [HttpPut]
         public IActionResult Update( int id, User user )
         {
-            if( id != user.UserId )
+            if( id != user.ID_User )
                 return BadRequest();
 
             _usersService.Update( user ); //* <--- here i´m using the rentalHouseService :) 

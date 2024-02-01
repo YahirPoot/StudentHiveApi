@@ -18,7 +18,7 @@ public class UsersService
 
     public User GetById( int id )//* The user will add the id to find a user from the list _User.id
     {
-        var user = _Users.FirstOrDefault( usr => usr.UserId == id ); //? will return a true o false?
+        var user = _Users.FirstOrDefault( usr => usr.ID_User == id ); //? will return a true o false?
 
         if( user == null ){
             throw new InvalidOperationException($"User with ID {id} not found.");
@@ -33,7 +33,7 @@ public class UsersService
 
     public void Update( User UserToUpdate ) //i add the new user for to update
     {
-        var user = GetById( UserToUpdate.UserId );
+        var user = GetById( UserToUpdate.ID_User );
 
         if( user != null ) //here we validate if the UserToUpdate isn´t null 
         {

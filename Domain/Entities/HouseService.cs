@@ -1,5 +1,5 @@
 namespace StudentHive.Domain.Entities;
-    public class Service
+    public class HouseService
     {
         public required int ServiceId { get; set; }
         public required bool Wifi { get; set; }
