@@ -31,3 +31,5 @@ C:\Users\gusss\learning\StudentHive\obj\Debug\net8.0\refint\StudentHive.dll
 C:\Users\gusss\learning\StudentHive\obj\Debug\net8.0\StudentHive.pdb
 C:\Users\gusss\learning\StudentHive\obj\Debug\net8.0\StudentHive.genruntimeconfig.cache
 C:\Users\gusss\learning\StudentHive\obj\Debug\net8.0\ref\StudentHive.dll
+C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
