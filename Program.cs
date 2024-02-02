@@ -1,23 +1,27 @@
 using StudentHive.Domain.Entities;
 using StudentHive.Services.Features.RentalHouses;
 using StudentHive.Services.Features.Users;
+using StudentHive.Services.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//container services
+//*Add services container services
 //TODO: Agregar mis repositorios
-builder.Services.AddScoped<RentalHouseService>(); //<--- services added 
-builder.Services.AddScoped<UsersService>(); //<--- services added 
+// builder.Services.AddScoped<RentalHouseService>(); //<--- Scoped services added  - scoped need to use a repository that will use a transient
+// builder.Services.AddScoped<UsersService>(); //<--- Scoped services added - scoped need to use a repository that will use a transient 
 
-builder.Services.AddSingleton<RentalHouseService>(); //<--- services added 
-builder.Services.AddSingleton<UsersService>(); //<--- services added 
+builder.Services.AddSingleton<RentalHouseService>(); //*<--- Singleton services added 
+builder.Services.AddSingleton<UsersService>(); //*<--- Singleton services added 
 
-builder.Services.AddControllers(); //<--- services added 
+builder.Services.AddControllers(); //*<--- Controller services added 
+//*Add services to the container.   
 
-// Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//*Using mappings services
+builder.Services.AddAutoMapper(typeof(ResponseMappingProfile).Assembly);
 
 var app = builder.Build();
 
