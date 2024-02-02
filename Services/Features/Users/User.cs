@@ -4,7 +4,7 @@ namespace StudentHive.Services.Features.Users;
 
 public class UsersService
 {
-    private readonly List<User> _Users; //here i will store all the users 
+    private readonly List<User> _Users; //i´m using this list to add the users. 
 
     public UsersService(  )
     {
