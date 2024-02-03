@@ -1,4 +1,6 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using StudentHive.Domain.Dtos;
 using StudentHive.Domain.Entities;
 using StudentHive.Services.Features.RentalHouses;
 
@@ -9,32 +11,50 @@ namespace StudentHive.Controller.V1
     public class RentalHouseController : ControllerBase //with the api controller we use the services and we can use http petitions 
     {
         public readonly RentalHouseService _rentalHouseService;
-        public RentalHouseController( RentalHouseService rentalHouseService )
+            public readonly IMapper _mapper;
+
+        public RentalHouseController( RentalHouseService rentalHouseService, IMapper mapper )
         {
             this._rentalHouseService = rentalHouseService;
+            this._mapper = mapper;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok( _rentalHouseService.GetAll() ); //* <--- here i´m using the rentalHouseService :) 
+            var rentalHouses = _rentalHouseService.GetAll();
+
+            var rentalHouseServiceDtos = _mapper.Map<IEnumerable<RentalHouseDTO>>(rentalHouses);
+            return Ok( rentalHouseServiceDtos ); 
         }
 
-        [HttpGet("{id:int}")] //? <--- i don´t know why i need to put this or how to put it.
-        public IActionResult GetById([FromRoute]int id) //? <--- the same with this
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
         {
-            var rentalHouse = _rentalHouseService.GetById(id); //* <--- here i´m using the rentalHouseService :) 
-            if( rentalHouse == null  ) 
+            var RentalHouse = _rentalHouseService.GetById(id); 
+            if( RentalHouse.ID_Publication <= 0  ) 
             return NotFound();
 
-            return Ok( rentalHouse );
+            var RentalHouseDto = _mapper.Map<RentalHouseDTO>( RentalHouse );
+
+            return Ok( RentalHouseDto );
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] RentalHouse rentalHouse)  //? <--- i don´t know nothing of this.
+        public IActionResult Add(RentalHouseCreateDTO RentalHouse)  //? <--- i don´t know nothing of this.
         {
-            _rentalHouseService.Add( rentalHouse ); //* <--- here i´m using the rentalHouseService :) 
-            return CreatedAtAction( nameof( GetById ), new { id = rentalHouse.ID_Publication }, rentalHouse );
+            //*we need to add the new id of de new RentalHouse
+            var RentalHouseCreateDtoToEntity = _mapper.Map<RentalHouse>(RentalHouse);
+            RentalHouse RentalHouseEntity = RentalHouseCreateDtoToEntity;
+
+            var RentalHouses = _rentalHouseService.GetAll();
+            var RentalHouseId = RentalHouses.Count() + 1;
+
+            RentalHouseEntity.ID_Publication = RentalHouseId;
+            _rentalHouseService.Add(RentalHouseEntity);
+
+            return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.ID_Publication }, RentalHouseEntity ); //! <--- i don´t know to use this. really i don´t hunderstand
+
         }
 
         [HttpPut]

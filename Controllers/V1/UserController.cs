@@ -47,16 +47,16 @@ namespace StudentHive.Controllers.V1
         public IActionResult Add( UserCreateDTO User ) 
         {
             var UserDtoToEntity = _mapper.Map<User>(User); //Convert my UserCreateDTO to Entity of User
-            User Entity = UserDtoToEntity;
+            User UserEntity = UserDtoToEntity;
 
             var Users = _usersService.GetAll(); //These are all my users.
             var UserId = Users.Count() + 1; //i am generating the id for the user.
 
-            Entity.ID_User = UserId; //here I am adding the id of the new User.
+            UserEntity.ID_User = UserId; //here I am adding the id of the new User.
 
-            _usersService.Add(Entity);
+            _usersService.Add(UserEntity);
 
-            return CreatedAtAction( nameof( GetById ), new { id = Entity.ID_User }, Entity ); //? <--- i don´t know nothing of this.
+            return CreatedAtAction( nameof( GetById ), new { id = UserEntity.ID_User }, UserEntity ); //? <--- i don´t know nothing of this.
         }
 
         [HttpPut]
