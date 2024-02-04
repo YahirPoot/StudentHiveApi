@@ -10,8 +10,8 @@ public class RentalHouseDTO{ /* It's just for transferring data */
         public List<string> Image_Url_P { get; set; } = null!;
         public RentalHouseDetailDTO DetailRentalHouse { get; set; } = null!;
         public HouseServiceDTO HouseService { get; set; } = null!;
-        // public TypeHouseRentalDTO TypeHouseRental { get; set; } = null!;
-        // public LocationDTO Location { get; set; } = null!;
+        public TypeHouseRentalDTO TypeHouseRental { get; set; } = null!;
+        public HouseLocationDTO HouseLocation { get; set; } = null!;
         public string ID_User { get; set; } = null!;
 }
 

@@ -14,11 +14,13 @@ public class ResponseMappingProfile : Profile
         
         CreateMap<RentalHouseDetail, RentalHouseDetailDTO>(); //*Validated
 
-        CreateMap<TypeHouseRental, TypeHouseRentalDTO>();
+        CreateMap<TypeHouseRental, TypeHouseRentalDTO>(); //*Validated
 
-        CreateMap<Location, LocationDTO>();
+        CreateMap<HouseService, HouseServiceDTO>();//*Validated
 
-        CreateMap<HouseService, HouseServiceDTO>();
+        CreateMap<HouseLocation, HouseLocationDTO>();//*
+
+        
 
     }
 }

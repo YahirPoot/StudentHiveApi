@@ -10,7 +10,7 @@ public class RentalHouseUpdateDTO{ /* It's just for transferring data */
         public required RentalHouseDetailDTO DetailRentalHouse { get; set; }
         public TypeHouseRentalDTO TypeHouseRental { get; set; } = null!;
         public DateTime PublicationDate { get; set; }
-        public LocationDTO Location { get; set; } = null!;
+        public HouseLocationDTO HouseLocation { get; set; } = null!;
         public HouseServiceDTO Service { get; set; } = null!;
         public string ID_User { get; set; } = null!;
 }

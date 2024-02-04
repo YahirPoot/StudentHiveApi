@@ -10,8 +10,8 @@ public class RentalHouse{
         public required List<string> Image_Url_P { get; set; } 
         public required RentalHouseDetail DetailRentalHouse { get; set; }
         public required HouseService HouseService { get; set; }
-        // public required TypeHouseRental TypeHouseRental { get; set; }
-        // public required Location Location { get; set; }
+        public TypeHouseRental TypeHouseRental { get; set; } = null!;
+        public required HouseLocation HouseLocation { get; set; }
         public required string ID_User { get; set; }    
 }
 

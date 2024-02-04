@@ -1,6 +1,6 @@
 namespace StudentHive.Domain.Entities;
 
-public class Location
+public class HouseLocation
     {
         public int ID_Location { get; set; }
         public required string Address { get; set; }

@@ -19,7 +19,8 @@ public class RequestCreateMappingProfile : Profile
         CreateMap<UserCreateDTO, User>();//*Validated
         CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
         CreateMap<HouseServiceDTO,HouseService >();//*Validated
-        // CreateMap<LocationCreateDTO, Location>();//x
-        // CreateMap<TypeHouseRentalCreateDTO, TypeHouseRental>();//x
+        CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
+        CreateMap<HouseLocationDTO,HouseLocation >();//*
+        
     }
 }
