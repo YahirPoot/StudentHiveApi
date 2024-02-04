@@ -32,7 +32,7 @@ public class UsersService
     }
 
     public void Update( User UserToUpdate ) //i add the new user for to update
-    {
+    { 
         var user = GetById( UserToUpdate.ID_User );
 
         if( user != null ) //here we validate if the UserToUpdate isn´t null 

@@ -60,18 +60,29 @@ namespace StudentHive.Controllers.V1
         }
 
         [HttpPut]
-        public IActionResult Update( int id, User user )
+        public IActionResult Update( int id, UserUpdateDTO UserDTO )
         {
-            if( id != user.ID_User )
-                return BadRequest();
+            var existingUser = _usersService.GetById(id);
+            if (existingUser == null)
+                return NotFound();
 
-            _usersService.Update( user ); //* <--- here i´m using the rentalHouseService :) 
+            if (!string.IsNullOrEmpty(UserDTO.PhoneNumber))
+            {
+                existingUser.PhoneNumber = UserDTO.PhoneNumber;
+
+            }
+            if (!string.IsNullOrEmpty(UserDTO.ProfilePhotoUrl)) 
+            {
+                existingUser.ProfilePhotoUrl = UserDTO.ProfilePhotoUrl;
+            }
+
             return NoContent();
         }
 
-        [HttpDelete("{id}")] // this only define the route 
+        [HttpDelete("{id}")]
         public IActionResult Delete( int id )  
         {
+
             _usersService.Delete( id );
             return NoContent();
         }

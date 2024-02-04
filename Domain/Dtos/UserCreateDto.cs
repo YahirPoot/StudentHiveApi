@@ -10,6 +10,6 @@ public class UserCreateDTO { //this class is to create new users
     public string Name { get; set; } = null!;
     public string LastName { get; set; } = null!;
     public string PhoneNumber { get; set; } = null!;
-    public string? ProfilePhotoUrl { get; set; }
+    public string ProfilePhotoUrl { get; set; } = null!;
     public Gender GenderU { get; set; }
 }   

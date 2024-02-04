@@ -7,7 +7,7 @@ public class User{
     public required string Name { get; set; }
     public required string LastName { get; set; }
     public required string PhoneNumber { get; set; }
-    public string? ProfilePhotoUrl { get; set; }
+    public required string ProfilePhotoUrl { get; set; }
     public required Gender GenderU { get; set; }
 
 }

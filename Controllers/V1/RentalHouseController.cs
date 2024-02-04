@@ -41,7 +41,7 @@ namespace StudentHive.Controller.V1
         }
 
         [HttpPost]
-        public IActionResult Add(RentalHouseCreateDTO RentalHouse)  //? <--- i don´t know nothing of this.
+        public IActionResult Add(RentalHouseCreateDTO RentalHouse) 
         {
             //*we need to add the new id of de new RentalHouse
             var RentalHouseCreateDtoToEntity = _mapper.Map<RentalHouse>(RentalHouse);
@@ -53,7 +53,7 @@ namespace StudentHive.Controller.V1
             RentalHouseEntity.ID_Publication = RentalHouseId;
             _rentalHouseService.Add(RentalHouseEntity);
 
-            return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.ID_Publication }, RentalHouseEntity ); //! <--- i don´t know to use this. really i don´t hunderstand
+            return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.ID_Publication }, RentalHouseEntity );
 
         }
 
@@ -63,7 +63,7 @@ namespace StudentHive.Controller.V1
             if( id != rentalHouse.ID_Publication )
                 return BadRequest();
 
-            _rentalHouseService.update( rentalHouse ); //* <--- here i´m using the rentalHouseService :) 
+            _rentalHouseService.update( rentalHouse ); 
             return NoContent();
         }
 
