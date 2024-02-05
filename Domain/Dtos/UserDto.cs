@@ -4,15 +4,15 @@ namespace StudentHive.Domain.Dtos;
 
 public class UserDTO /* It's just for transferring data */
 {
-    public int ID_User { get; set; } //to create a User DTO we can add for an automatically form.
-    public int User_Age { get; set; }
+    public int IdUser { get; set; }
+    public int UserAge { get; set; }
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!; 
     public string Name { get; set; } = null!;
     public string LastName { get; set; } = null!;
-    public string PhoneNumber { get; set; } = null!;
+    public long PhoneNumber { get; set; }
     public string? ProfilePhotoUrl { get; set; }
-    public Gender GenderU { get; set; }
+    public string? GenderU { get; set; }
 
     
 }

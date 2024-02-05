@@ -15,7 +15,7 @@ public class RequestCreateMappingProfile : Profile
                 {
                     dest.PublicationDate = DateTime.Now;
                 }
-        );
+        );//UserCreateDTO => User
         CreateMap<UserCreateDTO, User>();//*Validated
         CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
         CreateMap<HouseServiceDTO,HouseService >();//*Validated

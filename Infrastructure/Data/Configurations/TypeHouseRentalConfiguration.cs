@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace StudentHive.Infrastructure.Data.Configurations;
 
-public class TypeHouseRentalConfiguration : IEntityTypeConfiguration<TypesHouseRental>
+public class TypeHouseRentalConfiguration : IEntityTypeConfiguration<TypeHouseRental>
 {
-    public void Configure(EntityTypeBuilder<TypesHouseRental> builder)
+    public void Configure(EntityTypeBuilder<TypeHouseRental> builder)
     {
         builder.ToTable("TypesHouseRental");
 

@@ -10,11 +10,13 @@ using StudentHive.Services.Features.Users;
 
 namespace StudentHive.Controllers.V1
 {
+    //! These are the entry and exit point
+    //*Here i begin to work with my DTO and mappers. 
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase // this is the part that i show in the swagger. too in this part we consume the services layer
     {
-        public readonly UsersService _usersService;
+        public readonly UsersService _usersService;//This is to use all the logic of the program
         public readonly IMapper _mapper;
 
         public UserController( UsersService usersService, IMapper mapper )
@@ -24,18 +26,18 @@ namespace StudentHive.Controllers.V1
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var Users = _usersService.GetAll();
-            var UserDtos = _mapper.Map<IEnumerable<UserDTO>>(Users); //* Here i convert my entity to a List<UserDTO>
-            return Ok( UserDtos );
+            var Users = await _usersService.GetAll(); // <--- i did use of my _userServices 
+            var UserDtos = _mapper.Map<IEnumerable<UserDTO>>(Users); //* Here i convert my entities to a List<UserDTO>
+            return Ok( UserDtos ); //*i show my userDtos
         }
 
         [HttpGet("{id}")] //? <--- this is the form that we will watch the Url.
-        public IActionResult GetById(int id) 
+        public async Task<IActionResult> GetById(int id) 
         {
-            var User = _usersService.GetById(id); 
-            if( User.ID_User <= 0 ) 
+            var User = await _usersService.GetById(id); 
+            if( User.IdUser <= 0 ) 
             return NotFound();
 
             var UserToUserDto = _mapper.Map<UserDTO>(User);
@@ -44,47 +46,54 @@ namespace StudentHive.Controllers.V1
         }
 
         [HttpPost]
-        public IActionResult Add( UserCreateDTO User ) 
-        {
-            var UserDtoToEntity = _mapper.Map<User>(User); //Convert my UserCreateDTO to Entity of User
-            User UserEntity = UserDtoToEntity;
+        public async Task<IActionResult> Add( UserCreateDTO UserCreateDto ) 
+        {                        // User <= UserCreateDto          
+            var Entity = _mapper.Map<User>(UserCreateDto); 
 
-            var Users = _usersService.GetAll(); //These are all my users.
-            var UserId = Users.Count() + 1; //i am generating the id for the user.
+            await
+                _usersService.Add(Entity);
 
-            UserEntity.ID_User = UserId; //here I am adding the id of the new User.
+            var userDto = _mapper.Map<UserDTO>( Entity ); //I converted my entity to show my UserDto on the swagger
 
-            _usersService.Add(UserEntity);
-
-            return CreatedAtAction( nameof( GetById ), new { id = UserEntity.ID_User }, UserEntity ); //? <--- i don´t know nothing of this.
+            return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
         [HttpPut]
-        public IActionResult Update( int id, UserUpdateDTO UserDTO )
+        public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
         {
-            var existingUser = _usersService.GetById(id);
-            if (existingUser == null)
-                return NotFound();
+                try
+    {
+        var existingUser = await _usersService.GetById(id);
 
-            if (!string.IsNullOrEmpty(UserDTO.PhoneNumber))
-            {
-                existingUser.PhoneNumber = UserDTO.PhoneNumber;
-
-            }
-            if (!string.IsNullOrEmpty(UserDTO.ProfilePhotoUrl)) 
-            {
-                existingUser.ProfilePhotoUrl = UserDTO.ProfilePhotoUrl;
-            }
-
-            return NoContent();
+        if (existingUser == null)
+        {
+            return NotFound();
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult Delete( int id )  
-        {
+        existingUser.Name = userUpdateDto.Name;
+        existingUser.LastName = userUpdateDto.LastName;
+        existingUser.Email = userUpdateDto.Email;
+        existingUser.PhoneNumber = userUpdateDto.PhoneNumber;
+        existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
+        existingUser.Genderu = userUpdateDto.GenderU;
+        existingUser.UserAge = userUpdateDto.UserAge;
 
-            _usersService.Delete( id );
-            return NoContent();
+        await _usersService.Update(existingUser);
+
+        return NoContent();
+    }
+    catch (Exception)
+    {
+        
+        return StatusCode(500, "Internal server error");
+    }
         }
+
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> Delete( int id )  
+        // {
+        //     await _usersService.Delete(id);
+        //     return NoContent();
+        // }
     }
 }

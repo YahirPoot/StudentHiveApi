@@ -33,7 +33,7 @@ public partial class RentalHouse
 
     public virtual RentalHouseDetail? IdRentalHouseDetailNavigation { get; set; }
 
-    public virtual TypesHouseRental? IdTypeHouseRentalNavigation { get; set; }
+    public virtual TypeHouseRental? IdTypeHouseRentalNavigation { get; set; }
 
     public virtual User? IdUserNavigation { get; set; }
 }

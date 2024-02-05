@@ -25,18 +25,18 @@ public partial class StudentHiveDbContext : DbContext
 
     public virtual DbSet<RentalHouseDetail> RentalHouseDetails { get; set; }
 
-    public virtual DbSet<TypesHouseRental> TypesHouseRental { get; set; }
+    public virtual DbSet<TypeHouseRental> TypesHouseRental { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new UserConfiguration());
-        modelBuilder.ApplyConfiguration(new RentalHouseConfiguration());
-        modelBuilder.ApplyConfiguration(new RentalHouseDetailConfiguration());
         modelBuilder.ApplyConfiguration(new HouseLocationConfiguration());
         modelBuilder.ApplyConfiguration(new HouseServiceConfiguration());
+        modelBuilder.ApplyConfiguration(new RentalHouseConfiguration());
+        modelBuilder.ApplyConfiguration(new RentalHouseDetailConfiguration());
         modelBuilder.ApplyConfiguration(new TypeHouseRentalConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
         
         OnModelCreatingPartial(modelBuilder);
     }

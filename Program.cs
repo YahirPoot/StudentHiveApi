@@ -6,6 +6,7 @@ using StudentHive.Services.Features.Users;
 using StudentHive.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using StudentHive.Infrastructure.Repositories;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,13 +15,20 @@ var Configuration = builder.Configuration;
 
 //*Add services container services
 //TODO: Agregar mis repositorios
-// builder.Services.AddScoped<RentalHouseService>(); //<--- Scoped services added  - scoped need to use a repository that will use a transient
-// builder.Services.AddScoped<UsersService>(); //<--- Scoped services added - scoped need to use a repository that will use a transient 
+builder.Services.AddScoped<RentalHouseService>(); //
+builder.Services.AddTransient<RentalHouseRepository>();
+builder.Services.AddScoped<UsersService>(); // 
+builder.Services.AddTransient<UserRepository>(); 
 
-builder.Services.AddSingleton<RentalHouseService>(); //*<--- Singleton services added 
-builder.Services.AddSingleton<UsersService>(); //*<--- Singleton services added 
+// builder.Services.AddSingleton<RentalHouseService>(); //*<--- Singleton services added 
+// builder.Services.AddSingleton<UsersService>(); //*<--- Singleton services added 
 
 builder.Services.AddControllers(); //*<--- Controller services added 
+builder.Services.AddDbContext<StudentHiveDbContext>(
+    options => {
+        options.UseSqlServer(Configuration.GetConnectionString("gemDevelopment"));
+    }
+);
 //*Add services to the container.   
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

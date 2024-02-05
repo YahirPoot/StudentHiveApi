@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace StudentHive.Domain.Entities;
 
-public partial class TypesHouseRental
+public partial class TypeHouseRental
 {
     public int IdTypeHouseRental { get; set; }
 

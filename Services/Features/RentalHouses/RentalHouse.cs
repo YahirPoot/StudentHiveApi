@@ -1,26 +1,27 @@
 using StudentHive.Domain.Entities;
+using StudentHive.Infrastructure.Repositories;
 
 namespace StudentHive.Services.Features.RentalHouses;
 
     public class RentalHouseService 
     {
         //we are going to use this list to store all the RentalHouses
-        private readonly List<RentalHouse> _RentalHouses;// readonly is similar to final of Dart 
+        private readonly RentalHouseRepository _RentalHouseRepository;// readonly is similar to final of Dart 
         
 
-        public RentalHouseService() // _RentalHouses added in the constructor class
+        public RentalHouseService( RentalHouseRepository rentalHouseRepository ) // _RentalHouses added in the constructor class
         {
-            _RentalHouses = new(); // i just initialed  the variable so that it is not null. 
+            _RentalHouseRepository = rentalHouseRepository;
         }
 
-        public IEnumerable<RentalHouse> GetAll() //IEnumerable is to iterate a list - similar to a mapper   
+        public async Task<IEnumerable<RentalHouse>> GetAll() //IEnumerable is to iterate a list - similar to a mapper   
         {
-            return _RentalHouses;
+            return await _RentalHouseRepository.GetAll();
         }
 
-        public RentalHouse GetById( int id )
+        public async Task<RentalHouse> GetById( int id )
         {
-            var rentalHouse = _RentalHouses.FirstOrDefault(rh => rh.ID_Publication == id);
+            var rentalHouse = await _RentalHouseRepository.GetById(id);
             if (rentalHouse == null)
             {
                 throw new InvalidOperationException($"RentalHouse with ID {id} not found.");
@@ -28,26 +29,25 @@ namespace StudentHive.Services.Features.RentalHouses;
             return rentalHouse;
         }
 
-        public void Add( RentalHouse rentalHouse )
+        public async Task Add( RentalHouse rentalHouse )
         {
-            _RentalHouses.Add(rentalHouse);
+            await _RentalHouseRepository.Add(rentalHouse);
         }
 
-        public void update( RentalHouse rentalHouseToUpdate )
+        public async Task update( RentalHouse rentalHouseToUpdate )
         {
-            var rentalHouse = GetById( rentalHouseToUpdate.ID_Publication ); // this get a rentalHouse by id to can update that rentalHouse
+            var rentalHouse = GetById( rentalHouseToUpdate.IdPublication ); // this get a rentalHouse by id to can update that rentalHouse
 
-            if( rentalHouse != null){
-                _RentalHouses.Remove(rentalHouse);
-                _RentalHouses.Add(rentalHouseToUpdate);
+            if( rentalHouse.Id > 0 ){
+                await _RentalHouseRepository.Update(rentalHouseToUpdate);
             }
         }
 
-        public void Delete( int id )
+        public async Task Delete( int id )
         {
             var rentalHouse = GetById( id );
-            if( rentalHouse != null ){
-                _RentalHouses.Remove(rentalHouse); //we are using the reference from de method GetById.
+            if( rentalHouse.Id > 0 ){
+                await _RentalHouseRepository.Delete(id);
             }
         }
     }

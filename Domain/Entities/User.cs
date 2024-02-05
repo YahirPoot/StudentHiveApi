@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudentHive.Domain.Entities;
 
 public partial class User
 {
+    
     public int IdUser { get; set; }
 
     public int UserAge { get; set; }

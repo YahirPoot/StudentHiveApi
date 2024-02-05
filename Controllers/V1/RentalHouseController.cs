@@ -20,19 +20,19 @@ namespace StudentHive.Controller.V1
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var rentalHouses = _rentalHouseService.GetAll();
+            var rentalHouses = await _rentalHouseService.GetAll();
 
             var rentalHouseServiceDtos = _mapper.Map<IEnumerable<RentalHouseDTO>>(rentalHouses);
             return Ok( rentalHouseServiceDtos ); 
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var RentalHouse = _rentalHouseService.GetById(id); 
-            if( RentalHouse.ID_Publication <= 0  ) 
+            var RentalHouse = await _rentalHouseService.GetById(id); 
+            if( RentalHouse.IdPublication <= 0  ) 
             return NotFound();
 
             var RentalHouseDto = _mapper.Map<RentalHouseDTO>( RentalHouse );
@@ -41,36 +41,34 @@ namespace StudentHive.Controller.V1
         }
 
         [HttpPost]
-        public IActionResult Add(RentalHouseCreateDTO RentalHouse) 
+        public async Task<IActionResult> Add(RentalHouseCreateDTO RentalHouse) 
         {
             //*we need to add the new id of de new RentalHouse
             var RentalHouseCreateDtoToEntity = _mapper.Map<RentalHouse>(RentalHouse);
             RentalHouse RentalHouseEntity = RentalHouseCreateDtoToEntity;
 
-            var RentalHouses = _rentalHouseService.GetAll();
-            var RentalHouseId = RentalHouses.Count() + 1;
+            await _rentalHouseService.Add(RentalHouseEntity);
 
-            RentalHouseEntity.ID_Publication = RentalHouseId;
-            _rentalHouseService.Add(RentalHouseEntity);
+            var rentalHouseDto = _mapper.Map<RentalHouseDTO>(RentalHouseEntity);
 
-            return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.ID_Publication }, RentalHouseEntity );
+            return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.IdPublication }, rentalHouseDto);
 
         }
 
-        // [HttpPut]
-        // public IActionResult Update( int id, RentalHouse rentalHouse )
-        // {
-        //     if( id != rentalHouse.ID_Publication )
-        //         return BadRequest();
+        [HttpPut]
+        public async Task<IActionResult> Update( int id, RentalHouse rentalHouse )
+        {
+            if( id != rentalHouse.IdPublication)
+                return BadRequest();
 
-        //     _rentalHouseService.update( rentalHouse ); 
-        //     return NoContent();
-        // }
+            await _rentalHouseService.update( rentalHouse ); 
+            return NoContent();
+        }
 
         [HttpDelete("{id}")] // this only define the route 
-        public IActionResult Delete( int id )  
+        public async Task<IActionResult> Delete( int id )  
         {
-            _rentalHouseService.Delete( id );
+            await _rentalHouseService.Delete( id );
             return NoContent();
         }
     }
