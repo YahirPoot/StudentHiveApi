@@ -57,15 +57,15 @@ namespace StudentHive.Controller.V1
 
         }
 
-        [HttpPut]
-        public IActionResult Update( int id, RentalHouse rentalHouse )
-        {
-            if( id != rentalHouse.ID_Publication )
-                return BadRequest();
+        // [HttpPut]
+        // public IActionResult Update( int id, RentalHouse rentalHouse )
+        // {
+        //     if( id != rentalHouse.ID_Publication )
+        //         return BadRequest();
 
-            _rentalHouseService.update( rentalHouse ); 
-            return NoContent();
-        }
+        //     _rentalHouseService.update( rentalHouse ); 
+        //     return NoContent();
+        // }
 
         [HttpDelete("{id}")] // this only define the route 
         public IActionResult Delete( int id )  

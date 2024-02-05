@@ -1,12 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+
 namespace StudentHive.Domain.Entities;
 
-public class HouseLocation
-    {
-        public int ID_Location { get; set; }
-        public required string Address { get; set; }
-        public required string City { get; set; }
-        public required string State { get; set; }
-        public required string Country { get; set; }
-        public required string PostalCode { get; set; }
-        public required string Neighborhood  { get; set; }
-    }
+public partial class HouseLocation
+{
+    public int IdHouseLocation { get; set; }
+
+    public string Address { get; set; } = null!;
+
+    public string City { get; set; } = null!;
+
+    public string State { get; set; } = null!;
+
+    public string Country { get; set; } = null!;
+
+    public int PostalCode { get; set; }
+
+    public string? Neighborhood { get; set; }
+
+    public virtual ICollection<RentalHouse> RentalHouse { get; set; } = new List<RentalHouse>();
+}

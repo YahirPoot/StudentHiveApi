@@ -1,9 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
 namespace StudentHive.Domain.Entities;
 
-public class TypeHouseRental
+public partial class TypesHouseRental
 {
-    public int ID_TypeHouseRental { get; set; }
-    public bool OwnHouse { get; set; }
-    public bool SharedRoom { get; set; }
-    public bool SingleRoom { get; set; }
+    public int IdTypeHouseRental { get; set; }
+
+    public bool? OwnHouse { get; set; }
+
+    public bool? SharedRoom { get; set; }
+
+    public bool? SingleRoom { get; set; }
+
+    public virtual ICollection<RentalHouse> RentalHouse { get; set; } = new List<RentalHouse>();
 }
