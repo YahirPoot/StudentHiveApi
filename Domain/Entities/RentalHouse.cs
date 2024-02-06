@@ -19,6 +19,7 @@ public partial class RentalHouse
     public virtual HouseLocation? IdHouseLocationNavigation { get; set; }
     public virtual HouseService? IdHouseServiceNavigation { get; set; }
     public virtual RentalHouseDetail? IdRentalHouseDetailNavigation { get; set; }
+
     public virtual TypeHouseRental? IdTypeHouseRentalNavigation { get; set; }
 
     public virtual User? IdUserNavigation { get; set; }

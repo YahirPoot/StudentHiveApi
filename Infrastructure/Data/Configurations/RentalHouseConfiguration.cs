@@ -8,7 +8,7 @@ public class RentalHouseConfiguration : IEntityTypeConfiguration<RentalHouse>
 {
     public void Configure(EntityTypeBuilder<RentalHouse> builder)
     {
-        builder.ToTable("RentalHouses");
+        builder.ToTable("RentalHouse");
         builder.HasKey(e => e.IdPublication).HasName("PK__RentalHo__D4F61A3B954A627C");
 
         builder.Property(e => e.IdPublication).HasColumnName("ID_Publication");

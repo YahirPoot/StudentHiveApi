@@ -11,7 +11,12 @@ public class ResponseMappingProfile : Profile
         CreateMap<User,UserDTO>()
             .ForMember( dest => dest.IdUser, opt => opt.MapFrom( src => src.IdUser ));
 
-        CreateMap<RentalHouse,RentalHouseDTO>(); 
+        CreateMap<RentalHouse,RentalHouseDTO>()
+            .ForMember(dest => dest.DetailRentalHouse, opt => opt.MapFrom(src => src.IdRentalHouseDetailNavigation))
+            .ForMember(dest => dest.HouseService, opt => opt.MapFrom(src => src.IdHouseServiceNavigation))
+            .ForMember(dest => dest.TypeHouseRental, opt => opt.MapFrom(src => src.IdTypeHouseRentalNavigation))
+            .ForMember(dest => dest.HouseLocation, opt => opt.MapFrom(src => src.IdHouseLocationNavigation));
+        
         
         CreateMap<RentalHouseDetail, RentalHouseDetailDTO>(); 
 

@@ -15,7 +15,12 @@ public class RentalHouseRepository
 
     public async Task<IEnumerable<RentalHouse>> GetAll()
     {
-        var RentalHouses = await _context.RentalHouse.ToListAsync();
+        var RentalHouses = await _context.RentalHouse
+        .Include( rh => rh.IdRentalHouseDetailNavigation)
+        .Include( rh => rh.IdHouseServiceNavigation)
+        .Include( rh => rh.IdHouseLocationNavigation)
+        .Include( rh => rh.IdTypeHouseRentalNavigation)
+        .ToListAsync();
         return RentalHouses;
     }
 

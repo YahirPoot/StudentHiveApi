@@ -81,3 +81,4 @@ C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\publish\appsettings.Develop
 C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\publish\appsettings.json
 C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\publish\StudentHive.deps.json
 C:\Users\gusss\learning\StudentHive\bin\Debug\net8.0\publish\StudentHive.runtimeconfig.json
+C:\Users\gusss\learning\StudentHive\obj\Debug\net8.0\StudentHive.sourcelink.json

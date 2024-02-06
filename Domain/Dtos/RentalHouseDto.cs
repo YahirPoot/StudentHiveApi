@@ -1,6 +1,7 @@
 namespace StudentHive.Domain.Dtos;
 
-public class RentalHouseDTO{ /* It's just for transferring data */
+public class RentalHouseDTO
+{ /* It's just for transferring data */
         public int IDPublication { get; set; }
         public string Title { get; set; } = null!;
         public string? Description { get; set; }
