@@ -3,7 +3,7 @@ using StudentHive.Domain.Entities;
 namespace StudentHive.Domain.Dtos;
 //all the i need to create an user
 public class UserCreateDTO {
-    public int User_Age { get; set; }
+    public int UserAge { get; set; }
     public string Email { get; set; } = null!;
     public string Password { get; set; } = null!; 
     public string Name { get; set; } = null!;
