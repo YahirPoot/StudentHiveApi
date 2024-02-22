@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentHiveApi.Infrastructure.Data.Configurations;
 
 namespace StudentHive.Domain.Entities;
 
@@ -43,80 +42,22 @@ public partial class StudentHiveDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //     => optionsBuilder.UseSqlServer("Name=ConnectionStrings:gemDevelopment");
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // modelBuilder.Entity<Administrador>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Event>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<HouseService>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Image>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Location>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Notification>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<RentalHouseDetail>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<RentalHouse>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<ReportType>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Report>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<Request>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<ReservationConfirmed>(entity =>
-        // {
-        
-        // });
-
-        // modelBuilder.Entity<Rol>(entity =>
-        // {
-            
-        // });
-
-        // modelBuilder.Entity<User>(entity =>
-        // {
-            
-        // });
+        modelBuilder.ApplyConfiguration(new AdministradorConfiguration());
+        modelBuilder.ApplyConfiguration(new EventConfiguration());
+        modelBuilder.ApplyConfiguration(new HouseServiceConfiguration());
+        modelBuilder.ApplyConfiguration(new ImageConfiguration());
+        modelBuilder.ApplyConfiguration(new LocationConfiguration());
+        modelBuilder.ApplyConfiguration(new NotificationConfiguration());
+        modelBuilder.ApplyConfiguration(new RentalHouseDetailConfiguration());
+        modelBuilder.ApplyConfiguration(new RentalHouseConfiguration());
+        modelBuilder.ApplyConfiguration(new ReportTypeConfiguration());
+        modelBuilder.ApplyConfiguration(new ReportConfiguration());
+        modelBuilder.ApplyConfiguration(new RequestConfiguration());
+        modelBuilder.ApplyConfiguration(new ReservationConfirmedConfiguration());
+        modelBuilder.ApplyConfiguration(new RolConfiguration());
+        modelBuilder.ApplyConfiguration(new UserConfiguration());
 
         OnModelCreatingPartial(modelBuilder);
     }

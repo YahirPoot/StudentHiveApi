@@ -1,11 +1,8 @@
 using StudentHive.Domain.Entities;
-using StudentHive.Infrastructure.Data;
-// using StudentHive.Infrastructure.Repositories;
 using StudentHive.Services.Features.RentalHouses;
 using StudentHive.Services.Features.Users;
 using StudentHive.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using StudentHive.Infrastructure.Repositories;
 
 

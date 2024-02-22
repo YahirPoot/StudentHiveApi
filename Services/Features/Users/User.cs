@@ -34,7 +34,7 @@ public class UsersService
 
     public async Task Update( User user ) //i add the new user for to update
     { 
-       await _UserRepository.Update(user);
+        await _UserRepository.Update(user);
     }
 
     // public async Task Delete( int id ) //here the user will add an id?

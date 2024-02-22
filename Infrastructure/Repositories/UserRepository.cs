@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using StudentHive.Domain.Entities;
-using StudentHive.Infrastructure.Data;
+
 
 namespace StudentHive.Infrastructure.Repositories;
 //*It is le logic of database services 
@@ -10,7 +10,7 @@ public class UserRepository
     private readonly StudentHiveDbContext _context; //*Here i am interactuanding with my database
     public UserRepository(StudentHiveDbContext context)
     {
-            this._context = context;
+        this._context = context;
     }
 
     public async Task<IEnumerable<User>> GetAll()
