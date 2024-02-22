@@ -1,17 +1,16 @@
-using StudentHive.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using StudentHive.Domain.Entities;
 
-namespace StudentHive.Infrastructure.Data.Configurations;
+namespace StudentHiveApi.Infrastructure.Data.Configurations;
 
 public class HouseServiceConfiguration : IEntityTypeConfiguration<HouseService>
 {
     public void Configure(EntityTypeBuilder<HouseService> builder)
     {
         builder.ToTable("HouseServices");
+        builder.HasKey(e => e.IdHouseService).HasName("PK__HouseSer__BBD08A238E40FE6A");
 
-        builder.HasKey(e => e.IdHouseService).HasName("PK__HouseSer__BBD08A2363FC620F");
-            
-        builder.Property(e => e.IdHouseService).HasColumnName("ID_HouseService");
+            builder.Property(e => e.IdHouseService).HasColumnName("ID_HouseService");
     }
 }

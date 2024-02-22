@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace StudentHive.Domain.Entities;
 
-public partial class HouseLocation
+public partial class Location
 {
-    public int IdHouseLocation { get; set; }
+    public int IdLocation { get; set; }
 
     public string Address { get; set; } = null!;
 
@@ -19,5 +19,5 @@ public partial class HouseLocation
 
     public string? Neighborhood { get; set; }
 
-    public virtual ICollection<RentalHouse> RentalHouse { get; set; } = new List<RentalHouse>();
+    public virtual RentalHouse? RentalHouses { get; set; }
 }

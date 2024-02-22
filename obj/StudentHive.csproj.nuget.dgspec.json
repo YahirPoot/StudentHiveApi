@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gusss\\learning\\StudentHive\\StudentHive.csproj": {}
+    "C:\\Users\\gusss\\desktop\\api\\StudentHiveApi\\StudentHive.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gusss\\learning\\StudentHive\\StudentHive.csproj": {
+    "C:\\Users\\gusss\\desktop\\api\\StudentHiveApi\\StudentHive.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gusss\\learning\\StudentHive\\StudentHive.csproj",
+        "projectUniqueName": "C:\\Users\\gusss\\desktop\\api\\StudentHiveApi\\StudentHive.csproj",
         "projectName": "StudentHive",
-        "projectPath": "C:\\Users\\gusss\\learning\\StudentHive\\StudentHive.csproj",
+        "projectPath": "C:\\Users\\gusss\\desktop\\api\\StudentHiveApi\\StudentHive.csproj",
         "packagesPath": "C:\\Users\\gusss\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gusss\\learning\\StudentHive\\obj\\",
+        "outputPath": "C:\\Users\\gusss\\desktop\\api\\StudentHiveApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\gusss\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -13,7 +13,9 @@ public partial class RentalHouseDetail
 
     public int? NumberOfRooms { get; set; }
 
+    public int? NumbersOfBed { get; set; }
+
     public int? NumberOfHammocks { get; set; }
 
-    public virtual ICollection<RentalHouse> RentalHouse { get; set; } = new List<RentalHouse>();
+    public virtual RentalHouse? RentalHouses { get; set; }
 }

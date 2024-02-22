@@ -21,5 +21,5 @@ public partial class HouseService
 
     public bool? Television { get; set; }
 
-    public virtual ICollection<RentalHouse> RentalHouse { get; set; } = new List<RentalHouse>();
+    public virtual RentalHouse? RentalHouses { get; set; }
 }
