@@ -17,14 +17,10 @@ public class UsersService
         return await _UserRepository.GetAll();
     }
 
-    public async Task<User> GetById( int id )//* The user will add the id to find a user from the list _User.id
+    public async Task<User> GetById( int Userid )//* The user will add the id to find a user from the list _User.id
     {
-        var user = await _UserRepository.GetById( id ); //? will return a true o false?
+        return await _UserRepository.GetById( Userid );
 
-        if( user == null ){
-            throw new InvalidOperationException($"User with ID {id} not found.");
-        }
-        return user;
     }
 
     public async Task Add( User user )
@@ -37,12 +33,4 @@ public class UsersService
         await _UserRepository.Update(user);
     }
 
-    // public async Task Delete( int id ) //here the user will add an id?
-    // {
-    //     // var user = GetById( id ); 
-
-    //     // if( user.Id >= 0 ){
-    //         await _UserRepository.Delete(id);
-    //     // }
-    // }
 }

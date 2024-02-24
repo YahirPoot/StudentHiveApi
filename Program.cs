@@ -1,5 +1,5 @@
 using StudentHive.Domain.Entities;
-using StudentHive.Services.Features.RentalHouses;
+// using StudentHive.Services.Features.RentalHouses;
 using StudentHive.Services.Features.Users;
 using StudentHive.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +12,8 @@ var Configuration = builder.Configuration;
 
 //*Add services container services
 //TODO: Agregar mis repositorios
-builder.Services.AddScoped<RentalHouseService>(); //
-builder.Services.AddTransient<RentalHouseRepository>();
+// builder.Services.AddScoped<RentalHouseService>(); //
+// builder.Services.AddTransient<RentalHouseRepository>();
 builder.Services.AddScoped<UsersService>(); // 
 builder.Services.AddTransient<UserRepository>(); 
 

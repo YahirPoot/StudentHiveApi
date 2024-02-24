@@ -41,3 +41,4 @@ public partial class User
 
     public virtual ICollection<Report> IdReport { get; set; } = new List<Report>();
 }
+

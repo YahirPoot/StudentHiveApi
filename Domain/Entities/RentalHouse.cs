@@ -5,7 +5,7 @@ namespace StudentHive.Domain.Entities;
 
 public partial class RentalHouse
 {
-    public int IdPublication { get; set; }
+    public int IdPublication { get; set; }  
 
     public string Title { get; set; } = null!;
 

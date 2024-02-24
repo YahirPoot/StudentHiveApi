@@ -8,23 +8,20 @@ public class ResponseMappingProfile : Profile
 {
     public ResponseMappingProfile() //this is how I want my entity to be transformed into a DTO
     {       //User => UserDTO
-        CreateMap<User,UserDTO>()
-            .ForMember( dest => dest.IdUser, opt => opt.MapFrom( src => src.IdUser ));
-
-        CreateMap<RentalHouse,RentalHouseDTO>()
-            .ForMember(dest => dest.DetailRentalHouse, opt => opt.MapFrom(src => src.IdRentalHouseDetailNavigation))
-            .ForMember(dest => dest.HouseService, opt => opt.MapFrom(src => src.IdHouseServiceNavigation))
-            .ForMember(dest => dest.TypeHouseRental, opt => opt.MapFrom(src => src.IdTypeHouseRentalNavigation))
-            .ForMember(dest => dest.HouseLocation, opt => opt.MapFrom(src => src.IdHouseLocationNavigation));
+        CreateMap<User,UserDTO>();
+        CreateMap<RentalHouse,UserRentalHouseDTO>();
+        CreateMap<HouseService,HouseServiceDTO>();
+        CreateMap<Location,HouseLocationDTO>();
+        CreateMap<RentalHouseDetail,RentalHouseDetailDTO>();
+        CreateMap<Image,ImageRentalHouseDTO>();
         
-        
-        CreateMap<RentalHouseDetail, RentalHouseDetailDTO>(); 
 
-        CreateMap<TypeHouseRental, TypeHouseRentalDTO>(); 
-
-        CreateMap<HouseService, HouseServiceDTO>();
-
-        CreateMap<HouseLocation, HouseLocationDTO>();
+        // CreateMap<RentalHouse,RentalHouseDTO>()
+        //     .ForMember(dest => dest.DetailRentalHouse, opt => opt.MapFrom(src => src.IdRentalHouseDetailNavigation))
+        //     .ForMember(dest => dest.HouseService, opt => opt.MapFrom(src => src.IdHouseServiceNavigation))
+        //     .ForMember(dest => dest.TypeHouseRental, opt => opt.MapFrom(src => src.IdTypeHouseRentalNavigation))
+        //     .ForMember(dest => dest.HouseLocation, opt => opt.MapFrom(src => src.IdHouseLocationNavigation));
+    
         
 
     }

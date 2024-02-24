@@ -47,53 +47,46 @@ namespace StudentHive.Controllers.V1
 
         [HttpPost]
         public async Task<IActionResult> Add( UserCreateDTO UserCreateDto ) 
-        {                        // User <= UserCreateDto          
+        {                        // User <= UserCreateDto       // src <= dest    
             var Entity = _mapper.Map<User>(UserCreateDto); 
 
-            await
-                _usersService.Add(Entity);
+            await _usersService.Add(Entity);
 
             var userDto = _mapper.Map<UserDTO>( Entity ); //I converted my entity to show my UserDto on the swagger
 
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
-        {
-                try
-    {
-        var existingUser = await _usersService.GetById(id);
+    //     [HttpPut]
+    //     public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
+    //     {
+    //             try
+    // {
+    //     var existingUser = await _usersService.GetById(id);
 
-        if (existingUser == null)
-        {
-            return NotFound();
-        }
-        existingUser.IdUser = existingUser.IdUser;
-        existingUser.Name = userUpdateDto.Name;
-        existingUser.LastName = userUpdateDto.LastName;
-        existingUser.Email = userUpdateDto.Email;
-        existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
-        existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
-        existingUser.Genderu = userUpdateDto.GenderU;
-        existingUser.UserAge = userUpdateDto.UserAge;
-        //TODO: ADD VALIDATIONS - AFTER.
-        await _usersService.Update(existingUser);
+    //     if (existingUser == null)
+    //     {
+    //         return NotFound();
+    //     }
+    //     existingUser.IdUser = existingUser.IdUser;
+    //     existingUser.Name = userUpdateDto.Name;
+    //     existingUser.LastName = userUpdateDto.LastName;
+    //     existingUser.Email = userUpdateDto.Email;
+    //     existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
+    //     existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
+    //     existingUser.Genderu = userUpdateDto.GenderU;
+    //     existingUser.UserAge = userUpdateDto.UserAge;
+    //     //TODO: ADD VALIDATIONS - AFTER.
+    //     await _usersService.Update(existingUser);
 
-        return NoContent();
-    }
-    catch (Exception)
-    {
+    //     return NoContent();
+    // }
+    // catch (Exception)
+    // {
         
-        return StatusCode(500, "Internal server error");
-    }
-        }
+    //     return StatusCode(500, "Internal server error");
+    // }
+    //     }
 
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> Delete( int id )  
-        // {
-        //     await _usersService.Delete(id);
-        //     return NoContent();
-        // }
     }
 }
