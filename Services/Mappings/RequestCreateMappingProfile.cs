@@ -1,5 +1,6 @@
 using AutoMapper;
 using StudentHive.Domain.Dtos;
+using StudentHive.Domain.Dtos.AdminDtos;
 using StudentHive.Domain.Entities;
 
 namespace StudentHive.Services.Mappings;
@@ -19,8 +20,17 @@ public class RequestCreateMappingProfile : Profile
         CreateMap<UserCreateDTO, User>();//*Validated
         CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
         CreateMap<HouseServiceDTO,HouseService >();//*Validated
-        CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
-        CreateMap<HouseLocationDTO,HouseLocation >();//*
+        // CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
+        // CreateMap<HouseLocationDTO,HouseLocation >();//*
         
+        //Administrador
+        CreateMap<Administrador, MasterDto>();
+        CreateMap<CreateAdministradorDto, Administrador>()
+        .AfterMap(
+            (src, dest ) =>
+            {
+                dest.IdRol = 2;
+            }
+        );
     }
 }

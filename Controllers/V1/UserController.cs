@@ -75,7 +75,6 @@ namespace StudentHive.Controllers.V1
         existingUser.Email = userUpdateDto.Email;
         existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
         existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
-        existingUser.Genderu = userUpdateDto.GenderU;
         existingUser.UserAge = userUpdateDto.UserAge;
         //TODO: ADD VALIDATIONS - AFTER.
         await _usersService.Update(existingUser);
