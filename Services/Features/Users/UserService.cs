@@ -56,19 +56,20 @@ public class UsersService
 
     public string GenerateToken(User user)
     {
-        var claims = new[]{
-                new Claim(ClaimTypes.Name, user.Name ?? ""),
-                new Claim(ClaimTypes.Email, user.Email ?? ""),
-            };
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, user.Name ?? ""),
+            new Claim(ClaimTypes.Email, user.Email ?? ""),
+        };
 
-        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var securityToken = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.Now.AddDays(1),
-            signingCredentials: creds
-        );
+                                claims: claims,
+                                expires: DateTime.Now.AddDays(1),
+                                signingCredentials: creds
+                            );
 
         var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
         return token;
