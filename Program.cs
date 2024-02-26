@@ -1,6 +1,6 @@
 using StudentHive.Domain.Entities;
-// using StudentHive.Services.Features.RentalHouses;
 using StudentHive.Services.Features.Users;
+using StudentHiveApi.Services.Features.PswdHasher;
 using StudentHive.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
 using StudentHive.Infrastructure.Repositories;
@@ -12,15 +12,18 @@ var Configuration = builder.Configuration;
 
 //*Add services container services
 //TODO: Agregar mis repositorios
-// builder.Services.AddScoped<RentalHouseService>(); //
-// builder.Services.AddTransient<RentalHouseRepository>();
-builder.Services.AddScoped<UsersService>(); // 
+
+builder.Services.AddScoped<UsersService>();  
 builder.Services.AddTransient<UserRepository>(); 
+
+builder.Services.AddScoped<PasswordHasher>(); 
 
 // builder.Services.AddSingleton<RentalHouseService>(); //*<--- Singleton services added 
 // builder.Services.AddSingleton<UsersService>(); //*<--- Singleton services added 
 
 builder.Services.AddControllers(); //*<--- Controller services added 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StudentHiveDbContext>(
     options => {
         options.UseSqlServer(Configuration.GetConnectionString("gemDevelopment"));
@@ -28,9 +31,8 @@ builder.Services.AddDbContext<StudentHiveDbContext>(
 );
 //*Add services to the container.   
 
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 //*Using mappings services
 builder.Services.AddAutoMapper(typeof(ResponseMappingProfile).Assembly);

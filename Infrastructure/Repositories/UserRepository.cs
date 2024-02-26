@@ -28,21 +28,28 @@ public class UserRepository
     }
 
     public async Task<User> GetById(int id)
-{   /*
-    *me regresa todas las casas relacionadas con el usuario,
-    pero como esa entidad contiene otras entidades las tengo que agregar con el 
-    ThenInclude para poder llamarlas de igual menera  
-    *al final solo filstro que me regrese el primer usuario que tenga el mismo id que agregue como parametro */
-    var user = await _context.Users
-        .Include(u => u.RentalHouses) /* --> */
-        .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdHouseServiceNavigation) /* --> */
-        .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdLocationNavigation) /* --> */
-        .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdRentalHouseDetailNavigation) /* --> */
-        .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.Images) /* --> */
-        .FirstOrDefaultAsync(u => u.IdUser == id);
+    {   /*
+        *me regresa todas las casas relacionadas con el usuario,
+        pero como esa entidad contiene otras entidades las tengo que agregar con el 
+        ThenInclude para poder llamarlas de igual menera  
+        *al final solo filstro que me regrese el primer usuario que tenga el mismo id que agregue como parametro */
+        var user = await _context.Users
+            .Include(u => u.RentalHouses) /* --> */
+            .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdHouseServiceNavigation) /* --> */
+            .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdLocationNavigation) /* --> */
+            .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.IdRentalHouseDetailNavigation) /* --> */
+            .Include(u => u.RentalHouses).ThenInclude(listRH => listRH.Images) /* --> */
+            .FirstOrDefaultAsync(u => u.IdUser == id);
 
-    return user ?? new User();
-}
+        return user ?? new User();
+    }
+
+    public async Task<User> GetUserByEmail(string email)
+    {
+        var user = await _context.Users
+        .FirstOrDefaultAsync(user => user.Email == email);
+        return user ?? new User();
+    }
 
     public async Task Add(User user)
     {

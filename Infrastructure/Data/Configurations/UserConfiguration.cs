@@ -21,7 +21,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             builder.Property(e => e.LastName).IsUnicode(false);
             builder.Property(e => e.Name).IsUnicode(false);
             builder.Property(e => e.Password)
-                .HasMaxLength(50)
+                .HasMaxLength(100)
                 .IsUnicode(false);
             builder.Property(e => e.ProfilePhotoUrl).IsUnicode(false);
             builder.Property(e => e.UserAge).HasColumnName("User_Age");

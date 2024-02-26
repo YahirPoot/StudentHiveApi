@@ -40,5 +40,6 @@ public partial class User
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
 
     public virtual ICollection<Report> IdReport { get; set; } = new List<Report>();
+
 }
 

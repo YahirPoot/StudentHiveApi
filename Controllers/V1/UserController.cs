@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using StudentHive.Domain.Dtos;
@@ -45,10 +41,25 @@ namespace StudentHive.Controllers.V1
             return Ok( UserToUserDto );
         }
 
+        [HttpPost("login")]
+        public async Task<IActionResult> AuthLogin(AuthLoginDTO authLogin)
+        {
+            var user = await _usersService.AuthLogin(authLogin);
+            //* si me regresa una sentencia user() vacia tendrá id = 0
+            if (user.IdUser <= 0)
+                return BadRequest("Invalid email or password");
+
+            var dto = _mapper.Map<UserDTO>(user);
+            dto.Token = _usersService.GenerateToken(user);
+
+            return Ok(dto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Add( UserCreateDTO UserCreateDto ) 
         {                        // User <= UserCreateDto       // src <= dest    
             var Entity = _mapper.Map<User>(UserCreateDto); 
+            Entity.Password = _usersService.HashPassword( Entity.Password );
 
             await _usersService.Add(Entity);
 
@@ -56,37 +67,6 @@ namespace StudentHive.Controllers.V1
 
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
-
-    //     [HttpPut]
-    //     public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
-    //     {
-    //             try
-    // {
-    //     var existingUser = await _usersService.GetById(id);
-
-    //     if (existingUser == null)
-    //     {
-    //         return NotFound();
-    //     }
-    //     existingUser.IdUser = existingUser.IdUser;
-    //     existingUser.Name = userUpdateDto.Name;
-    //     existingUser.LastName = userUpdateDto.LastName;
-    //     existingUser.Email = userUpdateDto.Email;
-    //     existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
-    //     existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
-    //     existingUser.Genderu = userUpdateDto.GenderU;
-    //     existingUser.UserAge = userUpdateDto.UserAge;
-    //     //TODO: ADD VALIDATIONS - AFTER.
-    //     await _usersService.Update(existingUser);
-
-    //     return NoContent();
-    // }
-    // catch (Exception)
-    // {
-        
-    //     return StatusCode(500, "Internal server error");
-    // }
-    //     }
 
     }
 }
