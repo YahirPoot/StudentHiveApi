@@ -7,15 +7,15 @@ using StudentHive.Services.Features.Users;
 
 namespace StudentHive.Controllers.V1
 {
-    //! These are the entry and exit point
+    //* These are the entry and exit point
     //*Here i begin to work with my DTO and mappers. 
 
     // [Authorize] // --> me esta pidiendo que le pase un token
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase // this is the part that i show in the swagger. too in this part we consume the services layer
+    public class UserController : ControllerBase
     {
-        public readonly UsersService _usersService;//This is to use all the logic of the program
+        public readonly UsersService _usersService;
         public readonly IMapper _mapper;
 
         public UserController( UsersService usersService, IMapper mapper )
@@ -33,7 +33,8 @@ namespace StudentHive.Controllers.V1
             return Ok( UserDtos );
         }
 
-        [HttpGet("{id}")] //? <--- this is the form that we will watch the Url.
+        [Authorize(Policy = "Usuario")]
+        [HttpGet("id/{id}")] //? <--- this is the form that we will watch the Url.
         public async Task<IActionResult> GetById(int id) 
         {
             var User = await _usersService.GetById(id); 
@@ -45,19 +46,32 @@ namespace StudentHive.Controllers.V1
             return Ok( UserToUserDto );
         }
 
+        [Authorize(Policy = "Usuario")]
+        [HttpGet("email/{email}")]
+        public async Task<IActionResult> GetByEmail(string email)
+        {
+            var user = await _usersService.GetUserByEmail(email);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var UserToUserDto = _mapper.Map<UserDTO>(user);
+            return Ok(UserToUserDto);
+        }
+
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> AuthLogin(AuthLoginDTO authLogin)
         {   //me esta regresando la instancia del usuario que existe en la base de datos con el campo de rol
-            var user = await _usersService.AuthLogin(authLogin);
+            var userToken = await _usersService.AuthLogin(authLogin);
             //* si me regresa una sentencia user() vacia tendrá id = 0
-            if (user.IdUser <= 0)
+            if (userToken == "")
                 return BadRequest("Invalid email or password");
             
-            var dto = _mapper.Map<UserDTO>(user);
-            dto.Token = _usersService.GenerateToken(user); //solo uso este dto para mostrar el token.
-            return Ok(dto);
+            return Ok(userToken);
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> Add( UserCreateDTO UserCreateDto ) 
         {                        // User <= UserCreateDto       // src <= dest    
@@ -70,6 +84,8 @@ namespace StudentHive.Controllers.V1
 
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
+
+
 
     }
 }

@@ -46,12 +46,13 @@ public class UserRepository
     }
 
     public async Task<User> GetUserByEmail(string email)
-    {   //Le estoy pidiendo que me agregue el campo de rol de mi instancia usuario.
+    {   //Le estoy pidiendo que me agregue tambien el rol 
         var user = await _context.Users
         .Include(u => u.IdRolNavigation)
         .FirstOrDefaultAsync(user => user.Email == email);
         return user ?? new User();
     }
+
 
     public async Task Add(User user)
     {

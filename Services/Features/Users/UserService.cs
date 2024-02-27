@@ -34,25 +34,28 @@ public class UsersService
 
     }
 
-    public async Task<User> AuthLogin(AuthLoginDTO authLogin)
+    public async Task<string> AuthLogin(AuthLoginDTO authLogin)
     {
         if (authLogin.Email == null || authLogin.Password == null)
-            return new User();
+            return "";
         //Me regresa la instancia de usuario con el campo de rol
         var user = await _UserRepository.GetUserByEmail(authLogin.Email);
-
         if (user.IdUser <= 0 || user.Password == null)
-            return new User();
+            return "";
 
         var result = _passwordHasher.Verify(user.Password, authLogin.Password);
 
         if (!result)
         {
-            return new User();
+            return "";
         }
 
-        return await _UserRepository.GetById(user.IdUser);
+        string token = GenerateToken(user);
+
+
+        return token;
     }
+
 
     public string GenerateToken(User user)
     {
@@ -85,6 +88,13 @@ public class UsersService
     {
         return _passwordHasher.Hash(password);
     }
+
+    public async Task<User> GetUserByEmail(string email)
+{
+    // Realiza una consulta a la base de datos para encontrar al usuario por su correo electrónico
+    var user = await _UserRepository.GetUserByEmail(email);
+    return user;
+}
 
     public async Task Update( User user ) //i add the new user for to update
     { 

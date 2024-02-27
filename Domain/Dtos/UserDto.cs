@@ -2,7 +2,7 @@ using StudentHive.Domain.Entities;
 
 namespace StudentHive.Domain.Dtos;
 
-public class UserDTO /* It's just for transferring data */
+public class UserDTO
 {
     public int IdUser { get; set; }
     public int? UserAge { get; set; }
@@ -14,7 +14,7 @@ public class UserDTO /* It's just for transferring data */
     public long? PhoneNumber { get; set; }
     public string? ProfilePhotoUrl { get; set; }
     public byte? Genderu { get; set; }
-    public string? Token { get; set; }
+    // public string? Token { get; set; }
     public int? IdRol { get; set; }
     public virtual List<UserRentalHouseDTO> RentalHouses { get; set; } = new();
 }
