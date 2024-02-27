@@ -22,6 +22,7 @@ public class UserRepository
         .Include(u => u.RentalHouses).ThenInclude(rh => rh.IdLocationNavigation) // Incluye las ubicaciones de cada casa en alquiler
         .Include(u => u.RentalHouses).ThenInclude(rh => rh.IdRentalHouseDetailNavigation) // Incluye los detalles de alquiler de cada casa en alquiler
         .Include(u => u.RentalHouses).ThenInclude(rh => rh.Images) // Incluye las imágenes de cada casa en alquiler
+        .Include(u => u.IdRolNavigation) //no tuve que especificar algo como tal, pues ya esta en sus campos del idRolNavigation
         .ToListAsync();
 
     return users;
@@ -45,8 +46,9 @@ public class UserRepository
     }
 
     public async Task<User> GetUserByEmail(string email)
-    {
+    {   //Le estoy pidiendo que me agregue el campo de rol de mi instancia usuario.
         var user = await _context.Users
+        .Include(u => u.IdRolNavigation)
         .FirstOrDefaultAsync(user => user.Email == email);
         return user ?? new User();
     }

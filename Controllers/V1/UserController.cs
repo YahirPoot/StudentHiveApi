@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentHive.Domain.Dtos;
 using StudentHive.Domain.Entities;
@@ -8,7 +9,8 @@ namespace StudentHive.Controllers.V1
 {
     //! These are the entry and exit point
     //*Here i begin to work with my DTO and mappers. 
-    
+
+    // [Authorize] // --> me esta pidiendo que le pase un token
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase // this is the part that i show in the swagger. too in this part we consume the services layer
@@ -22,12 +24,13 @@ namespace StudentHive.Controllers.V1
             this._mapper = mapper;
         }
 
+        [Authorize(Policy = "Usuario")] // --> Me esta pidiendo la autorizacion del tipo de rol
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var Users = await _usersService.GetAll(); // <--- i did use of my _userServices 
-            var UserDtos = _mapper.Map<IEnumerable<UserDTO>>(Users); //* Here i convert my entities to a List<UserDTO>
-            return Ok( UserDtos ); //*i show my userDtos
+            var Users = await _usersService.GetAll();
+            var UserDtos = _mapper.Map<IEnumerable<UserDTO>>(Users);
+            return Ok( UserDtos );
         }
 
         [HttpGet("{id}")] //? <--- this is the form that we will watch the Url.
@@ -44,15 +47,14 @@ namespace StudentHive.Controllers.V1
 
         [HttpPost("login")]
         public async Task<IActionResult> AuthLogin(AuthLoginDTO authLogin)
-        {
+        {   //me esta regresando la instancia del usuario que existe en la base de datos con el campo de rol
             var user = await _usersService.AuthLogin(authLogin);
             //* si me regresa una sentencia user() vacia tendrá id = 0
             if (user.IdUser <= 0)
                 return BadRequest("Invalid email or password");
-
+            
             var dto = _mapper.Map<UserDTO>(user);
-            dto.Token = _usersService.GenerateToken(user);
-
+            dto.Token = _usersService.GenerateToken(user); //solo uso este dto para mostrar el token.
             return Ok(dto);
         }
 

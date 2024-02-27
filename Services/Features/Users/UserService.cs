@@ -38,7 +38,7 @@ public class UsersService
     {
         if (authLogin.Email == null || authLogin.Password == null)
             return new User();
-
+        //Me regresa la instancia de usuario con el campo de rol
         var user = await _UserRepository.GetUserByEmail(authLogin.Email);
 
         if (user.IdUser <= 0 || user.Password == null)
@@ -60,11 +60,10 @@ public class UsersService
         {
             new Claim(ClaimTypes.Name, user.Name ?? ""),
             new Claim(ClaimTypes.Email, user.Email ?? ""),
-            new Claim( ClaimTypes.Role, user.IdRolNavigation?.NombreRol ?? "")
-
+            new Claim(ClaimTypes.Role, user.IdRolNavigation?.NombreRol ?? "") 
         };
 
-        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value!));
+        var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("Jwt:Key").Value!));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var securityToken = new JwtSecurityToken(
@@ -73,7 +72,7 @@ public class UsersService
                                 signingCredentials: creds
                             );
 
-        var token = new JwtSecurityTokenHandler().WriteToken(securityToken);
+        var token = new JwtSecurityTokenHandler().WriteToken(securityToken);    
         return token;
     }
 
