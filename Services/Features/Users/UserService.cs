@@ -96,9 +96,10 @@ public class UsersService
     return user;
 }
 
-    public async Task Update( User user ) //i add the new user for to update
-    { 
-        await _UserRepository.Update(user);
-    }
+    public async Task Update(User user)
+{
+    await _UserRepository.Update(user);
+}
+
 
 }

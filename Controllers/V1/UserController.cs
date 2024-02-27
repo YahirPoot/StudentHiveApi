@@ -10,7 +10,6 @@ namespace StudentHive.Controllers.V1
     //* These are the entry and exit point
     //*Here i begin to work with my DTO and mappers. 
 
-    // [Authorize] // --> me esta pidiendo que le pase un token
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase
@@ -71,7 +70,7 @@ namespace StudentHive.Controllers.V1
             return Ok(userToken);
         }
 
-        
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Add( UserCreateDTO UserCreateDto ) 
         {                        // User <= UserCreateDto       // src <= dest    
@@ -85,7 +84,28 @@ namespace StudentHive.Controllers.V1
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
+        
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, UserUpdateDTO updateUserDto)
+        {
+            if (id <= 0 || updateUserDto == null)
+            {
+                return BadRequest("Invalid id or user data");
+            }
+
+            var user = await _usersService.GetById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Map only the properties that are not null in updateUserDto to the user entity
+            _mapper.Map(updateUserDto, user);
+
+            await _usersService.Update(user);
+            return NoContent();
+        }
 
     }
 }

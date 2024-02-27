@@ -18,6 +18,11 @@ public class RequestCreateMappingProfile : Profile
         // );//UserCreateDTO => User
         CreateMap<UserCreateDTO, User>()
         .ForMember(dest => dest.IdRol, opt => opt.MapFrom(src => 1));
+        
+        CreateMap<RentalHouseCreateDTO, RentalHouse>()
+        .ForMember(dest => dest.IdLocationNavigation, opt => opt.MapFrom(src => src.HouseLocation));
+
+        
         // CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
         // CreateMap<HouseServiceDTO,HouseService >();//*Validated
         // CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
