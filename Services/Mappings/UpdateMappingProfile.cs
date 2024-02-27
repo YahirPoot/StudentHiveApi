@@ -11,5 +11,7 @@ public class UpdateMappingProfile : Profile
                     // =>     new User entity
         CreateMap<UserUpdateDTO,User>();
 
+        CreateMap<RentalHouseUpdateDTO, RentalHouse>();
+
     }
 }

@@ -10,6 +10,8 @@ public class AdministradorService
     public AdministradorService(AdministradorRepository administradorRepository)
     {
         _AdministradorRepository = administradorRepository;
+
+
     }
 
     public async Task<IEnumerable<Administrador>> GetAll()

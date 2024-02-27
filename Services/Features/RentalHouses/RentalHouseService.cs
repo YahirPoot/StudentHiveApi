@@ -7,12 +7,10 @@ namespace StudentHive.Services.Features.RentalHouses;
 public class RentalHouseService 
 {
     private readonly RentalHouseRepository _rentalHouseRepository;
-    private readonly IMapper _mapper;
 
-    public RentalHouseService(RentalHouseRepository rentalHouseRepository, IMapper mapper)
+    public RentalHouseService(RentalHouseRepository rentalHouseRepository)
     {
         this._rentalHouseRepository = rentalHouseRepository;
-        this._mapper = mapper;
     }
 
     public async Task<IEnumerable<RentalHouse>> GetAll()
@@ -24,6 +22,23 @@ public class RentalHouseService
     public async Task<RentalHouse> GetById(int id)
     {
         var rentalHouse = await _rentalHouseRepository.GetById(id);
+
+        if (rentalHouse == null)
+        {
+            throw new InvalidOperationException($"RentalHouse with ID {id} not found.");
+        }
+
+        return rentalHouse;
+    }
+
+    public async Task<RentalHouse> GetByUserId(int id)
+    {
+        var rentalHouse = await _rentalHouseRepository.GetByUserId(id);
+
+        if (rentalHouse == null)
+        {
+            throw new InvalidOperationException($"User with ID {id} not found.");
+        }
         return rentalHouse;
     }
 

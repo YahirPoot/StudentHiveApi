@@ -166,3 +166,5 @@ C:\home\gustavo\StudentHiveApi\obj\Debug\net8.0\scopedcss\bundle\StudentHive.sty
 C:\home\gustavo\StudentHiveApi\obj\Debug\net8.0\StudentHive.csproj.CopyComplete
 C:\home\gustavo\StudentHiveApi\obj\Debug\net8.0\StudentHive.genruntimeconfig.cache
 C:\home\gustavo\StudentHiveApi\obj\Debug\net8.0\ref\StudentHive.dll
+C:\home\gustavo\StudentHiveApi\bin\Debug\net8.0\CloudinaryDotNet.dll
+C:\home\gustavo\StudentHiveApi\bin\Debug\net8.0\Newtonsoft.Json.dll

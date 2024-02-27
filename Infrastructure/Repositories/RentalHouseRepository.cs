@@ -12,21 +12,46 @@ public class RentalHouseRepository
         this._context = context;
     }
 
+    //Vista previa de publicaciones
     public async Task<IEnumerable<RentalHouse>> GetAll()
     {
         var rentalHouses = await _context.RentalHouses
             .Include(r => r.IdHouseServiceNavigation)
+            .Include(r => r.Images)
             .Include(r => r.IdLocationNavigation)
-            .Include(r => r.IdRentalHouseDetailNavigation)
-            .Include(r => r.IdTypeReportNavigation)
             .Include(r => r.IdUserNavigation)
             .ToListAsync();
         return rentalHouses;
     }
 
+    //aqui se va a ver todo lo que contiene rentalHouse
     public async Task<RentalHouse> GetById(int id)
     {
-        var rentalHouse = await _context.RentalHouses.FirstOrDefaultAsync(rentalHouse => rentalHouse.IdPublication == id);
+        var rentalHouse = await _context.RentalHouses
+        .Include(r => r.IdHouseServiceNavigation)
+        .Include(r => r.Images)
+        .Include(r => r.Requests)
+        .Include(r => r.IdLocationNavigation)
+        .Include(r => r.IdRentalHouseDetailNavigation)
+        .Include(r => r.IdTypeReportNavigation)
+        .Include(r => r.IdUserNavigation)
+        
+        .FirstOrDefaultAsync(rentalHouse => rentalHouse.IdPublication == id);
+        return rentalHouse ?? new RentalHouse();
+    }
+
+    public async Task<RentalHouse> GetByUserId(int id)
+    {
+        var rentalHouse = await _context.RentalHouses
+        .Include(r => r.IdHouseServiceNavigation)
+        .Include(r => r.Images)
+        .Include(r => r.Requests)
+        .Include(r => r.IdLocationNavigation)
+        .Include(r => r.IdRentalHouseDetailNavigation)
+        .Include(r => r.IdTypeReportNavigation)
+        .Include(r => r.IdUserNavigation)
+
+        .FirstOrDefaultAsync(rentalHouse => rentalHouse.IdUser == id);
         return rentalHouse ?? new RentalHouse();
     }
 

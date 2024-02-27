@@ -1,76 +1,91 @@
-// using AutoMapper;
-// using Microsoft.AspNetCore.Mvc;
-// using StudentHive.Domain.Dtos;
-// using StudentHive.Domain.Entities;
-// using StudentHive.Services.Features.RentalHouses;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using StudentHive.Domain.Dtos;
+using StudentHive.Domain.Entities;
+using StudentHive.Infrastructure.Repositories;
+using StudentHive.Services.Features.RentalHouses;
 
-// namespace StudentHive.Controller.V1
-// {
-//     [ApiController]
-//     [Route("api/[controller]")]
-//     public class RentalHouseController : ControllerBase //with the api controller we use the services and we can use http petitions 
-//     {
-//         public readonly RentalHouseService _rentalHouseService;
-//             public readonly IMapper _mapper;
+namespace StudentHive.Controllers.V1;
 
-//         public RentalHouseController( RentalHouseService rentalHouseService, IMapper mapper )
-//         {
-//             this._rentalHouseService = rentalHouseService;
-//             this._mapper = mapper;
-//         }
+[ApiController]
+[Route("api/v1/[controller]")]
+public class RentalHouseController : ControllerBase
+{
+    private readonly RentalHouseService _rentalHouseService;
+    private readonly IMapper _mapper;
 
-//         [HttpGet]
-//         public async Task<IActionResult> GetAll()
-//         {
-//             var rentalHouses = await _rentalHouseService.GetAll();
+    public RentalHouseController(RentalHouseService rentalHouseService, IMapper mapper)
+    {
+        this._rentalHouseService = rentalHouseService;
+        this._mapper = mapper;
+    }
 
-//             var rentalHouseServiceDtos = _mapper.Map<IEnumerable<RentalHouseDTO>>(rentalHouses);
-//             return Ok( rentalHouseServiceDtos ); 
-//         }
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var publications = await _rentalHouseService.GetAll();
+        var publicationDtos = _mapper.Map<IEnumerable<PublicationDtos>>(publications);
+        return Ok(publicationDtos);
+    }
 
-//         [HttpGet("{id}")]
-//         public async Task<IActionResult> GetById(int id)
-//         {
-//             var RentalHouse = await _rentalHouseService.GetById(id); 
-//             if( RentalHouse.IdPublication <= 0  ) 
-//             return NotFound();
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var rentalHouse = await _rentalHouseService.GetById(id);
+        if (rentalHouse.IdPublication <= 0)
+        {
+            return NotFound();
+        }
 
-//             var RentalHouseDto = _mapper.Map<RentalHouseDTO>( RentalHouse );
+        var rentalHouseToRentalHouseDto = _mapper.Map<RentalHouseDTO>(rentalHouse);
 
-//             return Ok( RentalHouseDto );
-//         }
+        return Ok(rentalHouseToRentalHouseDto);
+    }
 
-//         [HttpPost]
-//         public async Task<IActionResult> Add(RentalHouseCreateDTO RentalHouse) 
-//         {
-//             //*we need to add the new id of de new RentalHouse
-//             var RentalHouseCreateDtoToEntity = _mapper.Map<RentalHouse>(RentalHouse);
-//             RentalHouse RentalHouseEntity = RentalHouseCreateDtoToEntity;
+    [HttpGet("user/{id}")]
+    public async Task<IActionResult> GetByUserId(int id)
+    {
+        var rentalHouse = await _rentalHouseService.GetByUserId(id);
+        if (rentalHouse.IdPublication <= 0)
+        {
+            return NotFound();
+        }
 
-//             await _rentalHouseService.Add(RentalHouseEntity);
+        var rentalHouseToRentalHouseDto = _mapper.Map<RentalHouseDTO>(rentalHouse);
 
-//             var rentalHouseDto = _mapper.Map<RentalHouseDTO>(RentalHouseEntity);
+        return Ok(rentalHouseToRentalHouseDto);
+    }
 
-//             return CreatedAtAction( nameof( GetById ), new { id = RentalHouseEntity.IdPublication }, rentalHouseDto);
+    [HttpPost]
+    public async Task<IActionResult> Add(RentalHouseCreateDTO rentalHouseCreateDto)
+    {
+        var entity = _mapper.Map<RentalHouse>(rentalHouseCreateDto);
 
-//         }
+        await _rentalHouseService.Add(entity);
 
-//         [HttpPut]
-//         public async Task<IActionResult> Update( int id, RentalHouse rentalHouse )
-//         {
-//             if( id != rentalHouse.IdPublication)
-//                 return BadRequest();
+        var rentalHouseDto = _mapper.Map<RentalHouseDTO>(entity);
 
-//             await _rentalHouseService.update( rentalHouse ); 
-//             return NoContent();
-//         }
+        return CreatedAtAction(nameof(GetById), new { id = entity.IdPublication }, rentalHouseDto);
+    }
 
-//         [HttpDelete("{id}")] // this only define the route 
-//         public async Task<IActionResult> Delete( int id )  
-//         {
-//             await _rentalHouseService.Delete( id );
-//             return NoContent();
-//         }
-//     }
-// }
+    [HttpPut]
+    public async Task<IActionResult> Update(int id, RentalHouseCreateDTO rentalHouseCreateDto)
+    {
+        var entity = _mapper.Map<RentalHouse>(rentalHouseCreateDto);
+        entity.IdPublication = id;
 
+        await _rentalHouseService.Update(entity);
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await _rentalHouseService.Delete(id);
+
+        return NoContent();
+    }
+
+}

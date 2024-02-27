@@ -8,8 +8,16 @@ namespace StudentHive.Services.Mappings;
 public class RequestCreateMappingProfile : Profile
 {
     public RequestCreateMappingProfile()
-    {               //src                   dest
-        CreateMap<RentalHouseCreateDTO, RentalHouse>()             //*Validated
+    {             
+          //src                   dest
+        CreateMap<RentalHouse, PublicationDtos>();
+        CreateMap<RentalHouseDetailCreateDTO, RentalHouseDetail>();//*Validated
+        CreateMap<HouseServiceCreateDTO, HouseService>();//*Validated
+        CreateMap<HouseLocationCreateDTO, Location>();//*Validated
+        CreateMap<ImageRentalHouseCreateDTO, Image>();//*Validated
+
+
+        CreateMap<RentalHouseCreateDTO, RentalHouse>()            //*Validated
         .AfterMap
         (
             (src, dest) => 
@@ -17,11 +25,6 @@ public class RequestCreateMappingProfile : Profile
                     dest.PublicationDate = DateTime.Now;
                 }
         );//UserCreateDTO => User
-        CreateMap<UserCreateDTO, User>();//*Validated
-        CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
-        CreateMap<HouseServiceDTO,HouseService >();//*Validated
-        // CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
-        // CreateMap<HouseLocationDTO,HouseLocation >();//*
         
         //Administrador
         CreateMap<Administrador, MasterDto>();

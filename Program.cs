@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using StudentHive.Infrastructure.Repositories;
 using StudentHive.Controllers.V1;
 using StudentHive.Services.Features.Administradors;
+using StudentHive.Services.Features.RentalHouses;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,12 +15,15 @@ var Configuration = builder.Configuration;
 
 //*Add services container services
 //TODO: Agregar mis repositorios
-// builder.Services.AddScoped<RentalHouseService>(); //
-// builder.Services.AddTransient<RentalHouseRepository>();
+
+//rental House
+builder.Services.AddScoped<RentalHouseService>(); //
+builder.Services.AddTransient<RentalHouseRepository>();
+
 builder.Services.AddScoped<UsersService>(); // 
 builder.Services.AddTransient<UserRepository>(); 
 
-// Administradr 
+// Administrador 
 builder.Services.AddScoped<AdministradorService>();
 builder.Services.AddTransient<AdministradorRepository>();
 
@@ -44,13 +48,6 @@ builder.Services.AddAutoMapper(typeof(RequestCreateMappingProfile).Assembly);
 builder.Services.AddAutoMapper(typeof(UpdateMappingProfile).Assembly);
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 // Configure Swagger for all environments
 app.UseSwagger();
