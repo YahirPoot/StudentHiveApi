@@ -60,6 +60,8 @@ public class UsersService
         {
             new Claim(ClaimTypes.Name, user.Name ?? ""),
             new Claim(ClaimTypes.Email, user.Email ?? ""),
+            new Claim( ClaimTypes.Role, user.IdRolNavigation?.NombreRol ?? "")
+
         };
 
         var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_configuration.GetSection("JWT:Key").Value!));

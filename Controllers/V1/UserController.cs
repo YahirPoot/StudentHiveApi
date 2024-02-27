@@ -8,6 +8,7 @@ namespace StudentHive.Controllers.V1
 {
     //! These are the entry and exit point
     //*Here i begin to work with my DTO and mappers. 
+    
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : ControllerBase // this is the part that i show in the swagger. too in this part we consume the services layer

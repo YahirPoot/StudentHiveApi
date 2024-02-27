@@ -4,6 +4,7 @@ using StudentHiveApi.Services.Features.PswdHasher;
 using StudentHive.Services.Mappings;
 using Microsoft.EntityFrameworkCore;
 using StudentHive.Infrastructure.Repositories;
+using System.Security.Claims;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,13 @@ builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddControllers(); //*<--- Controller services added 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, "Usuario"));
+    options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Administrador"));
+});
+
 builder.Services.AddDbContext<StudentHiveDbContext>(
     options => {
         options.UseSqlServer(Configuration.GetConnectionString("gemDevelopment"));
