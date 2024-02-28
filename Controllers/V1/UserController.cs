@@ -98,13 +98,10 @@ namespace StudentHive.Controllers.V1
             return NotFound();
         }
         existingUser.IdUser = existingUser.IdUser;
-        existingUser.Name = userUpdateDto.Name;
-        existingUser.LastName = userUpdateDto.LastName;
-        existingUser.Email = userUpdateDto.Email;
-        existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
+        existingUser.Description = userUpdateDto.Description;
+        existingUser.PhoneNumber = userUpdateDto.PhoneNumber;
         existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
-        existingUser.Genderu = userUpdateDto.GenderU;
-        existingUser.UserAge = userUpdateDto.UserAge;
+
         //TODO: ADD VALIDATIONS - AFTER.
         await _usersService.Update(existingUser);
 
