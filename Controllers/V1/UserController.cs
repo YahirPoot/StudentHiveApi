@@ -25,7 +25,7 @@ namespace StudentHive.Controllers.V1
             this._imageUploadService = imageUploadService;
         }
 
-        [Authorize(Policy = "Usuario")] // --> Me esta pidiendo la autorizacion del tipo de rol
+        [Authorize(Policy = "Administrador")] // --> Me esta pidiendo la autorizacion del tipo de rol
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -88,7 +88,7 @@ namespace StudentHive.Controllers.V1
 
         [Authorize(Policy = "Usuario")]
         [HttpPut("complete/{id}")]
-        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto, IFormFile image) //actualiza los datos por llenar.
+        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto) //actualiza los datos por llenar.
         {
             if (id <= 0 || completeUserInformationDto == null)
             {
@@ -102,9 +102,9 @@ namespace StudentHive.Controllers.V1
             }
 
             // Upload image if provided
-            if (image != null)
+            if (completeUserInformationDto.Image != null)
             {
-                var imageUrl = await _imageUploadService.UploadImageAsync(image);
+                var imageUrl = await _imageUploadService.UploadImageAsync(completeUserInformationDto.Image);
                 user.ProfilePhotoUrl = imageUrl;
             }
 
