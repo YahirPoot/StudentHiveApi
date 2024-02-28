@@ -20,8 +20,7 @@ public class RequestCreateMappingProfile : Profile
         CreateMap<UserCreateDTO, User>();//*Validated
         CreateMap<RentalHouseDetailDTO, RentalHouseDetail>();//*Validated
         CreateMap<HouseServiceDTO,HouseService >();//*Validated
-        CreateMap<TypeHouseRentalDTO, TypeHouseRental>();//*Validate
-        CreateMap<HouseLocationDTO,HouseLocation >();//*
+        CreateMap<HouseLocationDTO,Location >();//*
         
     }
 }

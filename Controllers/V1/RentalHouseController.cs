@@ -8,7 +8,8 @@ namespace StudentHive.Controller.V1
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RentalHouseController : ControllerBase //with the api controller we use the services and we can use http petitions 
+    public class RentalHouseController : ControllerBase //manejas  la entrada y salida de datos
+    //manejamos mappers y Dtos.
     {
         public readonly RentalHouseService _rentalHouseService;
             public readonly IMapper _mapper;
@@ -61,7 +62,7 @@ namespace StudentHive.Controller.V1
             if( id != rentalHouse.IdPublication)
                 return BadRequest();
 
-            await _rentalHouseService.update( rentalHouse ); 
+            await _rentalHouseService.Update( rentalHouse ); 
             return NoContent();
         }
 

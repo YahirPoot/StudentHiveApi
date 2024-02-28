@@ -4,7 +4,7 @@ using StudentHive.Infrastructure.Repositories;
 
 namespace StudentHive.Services.Features.RentalHouses;
 
-public class RentalHouseService 
+public class RentalHouseService //maneja la logica de negocio -- ¿Que es lo que quieres hacer??
 {
     private readonly RentalHouseRepository _rentalHouseRepository;
 

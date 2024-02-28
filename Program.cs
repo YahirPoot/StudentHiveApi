@@ -4,6 +4,10 @@ using StudentHive.Services.Features.Users;
 using StudentHiveApi.Services.Features.PswdHasher;
 using StudentHive.Services.Mappings;
 using StudentHive.Infrastructure.Repositories;
+using Microsoft.OpenApi.Models;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using CloudinaryDotNet;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +22,7 @@ builder.Services.AddScoped<UsersService>(); //
 builder.Services.AddTransient<UserRepository>(); 
 
 // Administrador 
-builder.Services.AddScoped<AdministradorService>();
+builder.Services.AddScoped<AdministradorRepository>();
 builder.Services.AddTransient<AdministradorRepository>();
 
 builder.Services.AddScoped<PasswordHasher>(); 

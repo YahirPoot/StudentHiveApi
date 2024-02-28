@@ -3,7 +3,7 @@ using StudentHive.Domain.Entities;
 
 namespace StudentHive.Infrastructure.Repositories;
 
-public class RentalHouseRepository
+public class RentalHouseRepository //Conexion con la base de datos
 {
     private readonly StudentHiveDbContext _context;
 
@@ -46,10 +46,10 @@ public class RentalHouseRepository
         .Include(r => r.IdHouseServiceNavigation)
         .Include(r => r.Images)
         .Include(r => r.Requests)
-        .Include(r => r.IdLocationNavigation)
-        .Include(r => r.IdRentalHouseDetailNavigation)
-        .Include(r => r.IdTypeReportNavigation)
-        .Include(r => r.IdUserNavigation)
+        .Include(r => r.IdLocationNavigation) //dto creado 
+        .Include(r => r.IdRentalHouseDetailNavigation) //dto creado 
+        .Include(r => r.IdTypeReportNavigation) //dto creado
+        .Include(r => r.IdUserNavigation) //dto creado
 
         .FirstOrDefaultAsync(rentalHouse => rentalHouse.IdUser == id);
         return rentalHouse ?? new RentalHouse();
