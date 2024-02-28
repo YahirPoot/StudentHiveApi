@@ -86,58 +86,42 @@ namespace StudentHive.Controllers.V1
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
-        [Authorize(Policy = "Usuario")]
-        [HttpPut("complete/{id}")]
-        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto, IFormFile image) //actualiza los datos por llenar.
+        [HttpPut]
+        public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
         {
-            if (id <= 0 || completeUserInformationDto == null)
-            {
-                return BadRequest("Invalid id or user data");
-            }
+                try
+    {
+        var existingUser = await _usersService.GetById(id);
 
-            var user = await _usersService.GetById(id);
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
+        if (existingUser == null)
+        {
+            return NotFound();
+        }
+        existingUser.IdUser = existingUser.IdUser;
+        existingUser.Name = userUpdateDto.Name;
+        existingUser.LastName = userUpdateDto.LastName;
+        existingUser.Email = userUpdateDto.Email;
+        existingUser.PhoneNumber = userUpdateDto.PhoneNumber; 
+        existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
+        existingUser.Genderu = userUpdateDto.GenderU;
+        existingUser.UserAge = userUpdateDto.UserAge;
+        //TODO: ADD VALIDATIONS - AFTER.
+        await _usersService.Update(existingUser);
 
-            // Upload image if provided
-            if (image != null)
-            {
-                var imageUrl = await _imageUploadService.UploadImageAsync(image);
-                user.ProfilePhotoUrl = imageUrl;
-            }
-
-            // Map remaining user information
-            _mapper.Map(completeUserInformationDto, user);
-
-            await _usersService.Update(user);
-            return NoContent();
+        return NoContent();
+    }
+    catch (Exception)
+    {
+        
+        return StatusCode(500, "Internal server error");
+    }
         }
 
-
-        [Authorize(Policy = "Usuario")]
-        [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateUserInformation(int id, UserUpdateDTO updateUserDto) //actualiza los datos por llenar.
-        {
-            if (id <= 0 || updateUserDto == null)
-            {
-                return BadRequest("Invalid id or user data");
-            }
-
-            var user = await _usersService.GetById(id);
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-
-            // Map only the properties that are not null in updateUserDto to the user entity
-            _mapper.Map(updateUserDto, user);
-
-            await _usersService.Update(user);
-            return NoContent();
-        }
-
-
+        // [HttpDelete("{id}")]
+        // public async Task<IActionResult> Delete( int id )  
+        // {
+        //     await _usersService.Delete(id);
+        //     return NoContent();
+        // }
     }
 }

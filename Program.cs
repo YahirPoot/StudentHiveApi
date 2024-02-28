@@ -1,36 +1,25 @@
 using StudentHive.Domain.Entities;
+using StudentHive.Services.Features.RentalHouses;
 using StudentHive.Services.Features.Users;
 using StudentHiveApi.Services.Features.PswdHasher;
 using StudentHive.Services.Mappings;
 using StudentHive.Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using CloudinaryDotNet;
-using System.Security.Claims;
-using System.Text;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 var Configuration = builder.Configuration;
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Jwt:Key").Value)),
-            ValidateIssuer = false,
-            ValidateAudience = false
-        };
-    });
-
-
-builder.Services.AddScoped<UsersService>();  
+//*Add services container services
+//TODO: Agregar mis repositorios
+builder.Services.AddScoped<RentalHouseService>(); //
+builder.Services.AddTransient<RentalHouseRepository>();
+builder.Services.AddScoped<UsersService>(); // 
 builder.Services.AddTransient<UserRepository>(); 
+
+// Administrador 
+builder.Services.AddScoped<AdministradorService>();
+builder.Services.AddTransient<AdministradorRepository>();
 
 builder.Services.AddScoped<PasswordHasher>(); 
 
@@ -95,13 +84,6 @@ builder.Services.AddAutoMapper(typeof(UpdateMappingProfile).Assembly);
 
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 // Configure Swagger for all environments
 app.UseSwagger();
