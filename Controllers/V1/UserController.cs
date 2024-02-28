@@ -84,10 +84,30 @@ namespace StudentHive.Controllers.V1
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
-        
+        [Authorize(Policy = "Usuario")]
+        [HttpPut("complete/{id}")]
+        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto) //actualiza los datos por llenar.
+        {
+            if (id <= 0 || completeUserInformationDto == null)
+            {
+                return BadRequest("Invalid id or user data");
+            }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, UserUpdateDTO updateUserDto)
+            var user = await _usersService.GetById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            _mapper.Map(completeUserInformationDto, user);
+
+            await _usersService.Update(user);
+            return NoContent();
+        }
+
+        [Authorize(Policy = "Usuario")]
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateUserInformation(int id, UserUpdateDTO updateUserDto) //actualiza los datos por llenar.
         {
             if (id <= 0 || updateUserDto == null)
             {
@@ -106,6 +126,8 @@ namespace StudentHive.Controllers.V1
             await _usersService.Update(user);
             return NoContent();
         }
+
+
 
     }
 }
