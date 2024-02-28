@@ -6113,11 +6113,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\angel\\Documents\\StudentHiveApi\\StudentHiveApi\\StudentHive.csproj",
+      "projectUniqueName": "C:\\Users\\angel\\OneDrive\\Documentos\\GitHub\\StudentHiveApi\\StudentHive.csproj",
       "projectName": "StudentHive",
-      "projectPath": "C:\\Users\\angel\\Documents\\StudentHiveApi\\StudentHiveApi\\StudentHive.csproj",
+      "projectPath": "C:\\Users\\angel\\OneDrive\\Documentos\\GitHub\\StudentHiveApi\\StudentHive.csproj",
       "packagesPath": "C:\\Users\\angel\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\angel\\Documents\\StudentHiveApi\\StudentHiveApi\\obj\\",
+      "outputPath": "C:\\Users\\angel\\OneDrive\\Documentos\\GitHub\\StudentHiveApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\angel\\AppData\\Roaming\\NuGet\\NuGet.Config"
