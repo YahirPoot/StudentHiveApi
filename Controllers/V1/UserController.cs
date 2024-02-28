@@ -16,11 +16,13 @@ namespace StudentHive.Controllers.V1
     {
         public readonly UsersService _usersService;
         public readonly IMapper _mapper;
+        public readonly ImageUploadService _imageUploadService;
 
-        public UserController( UsersService usersService, IMapper mapper )
+        public UserController( UsersService usersService, IMapper mapper, ImageUploadService imageUploadService )
         {
             this._usersService = usersService;
             this._mapper = mapper;
+            this._imageUploadService = imageUploadService;
         }
 
         [Authorize(Policy = "Usuario")] // --> Me esta pidiendo la autorizacion del tipo de rol
@@ -86,7 +88,7 @@ namespace StudentHive.Controllers.V1
 
         [Authorize(Policy = "Usuario")]
         [HttpPut("complete/{id}")]
-        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto) //actualiza los datos por llenar.
+        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto, IFormFile image) //actualiza los datos por llenar.
         {
             if (id <= 0 || completeUserInformationDto == null)
             {
@@ -99,11 +101,20 @@ namespace StudentHive.Controllers.V1
                 return NotFound("User not found");
             }
 
+            // Upload image if provided
+            if (image != null)
+            {
+                var imageUrl = await _imageUploadService.UploadImageAsync(image);
+                user.ProfilePhotoUrl = imageUrl;
+            }
+
+            // Map remaining user information
             _mapper.Map(completeUserInformationDto, user);
 
             await _usersService.Update(user);
             return NoContent();
         }
+
 
         [Authorize(Policy = "Usuario")]
         [HttpPut("update/{id}")]
@@ -126,7 +137,6 @@ namespace StudentHive.Controllers.V1
             await _usersService.Update(user);
             return NoContent();
         }
-
 
 
     }
