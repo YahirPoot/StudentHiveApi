@@ -25,7 +25,7 @@ namespace StudentHive.Controllers.V1
             this._imageUploadService = imageUploadService;
         }
 
-        [Authorize(Policy = "Usuario")] // --> Me esta pidiendo la autorizacion del tipo de rol
+        [Authorize(Policy = "Administrador")] // --> Me esta pidiendo la autorizacion del tipo de rol
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -86,39 +86,58 @@ namespace StudentHive.Controllers.V1
             return CreatedAtAction( nameof( GetById ), new { id = Entity.IdUser }, userDto); //? <--- i don´t know nothing of this.
         }
 
-        [HttpPut]
-        public async Task<IActionResult> Update( int id, UserUpdateDTO userUpdateDto )
+        [Authorize(Policy = "Usuario")]
+        [HttpPut("complete/{id}")]
+        public async Task<IActionResult> CompleteUserInformation(int id, CompleteUserInformationDTO completeUserInformationDto, IFormFile image) //actualiza los datos por llenar.
         {
-                try
-    {
-        var existingUser = await _usersService.GetById(id);
+            if (id <= 0 || completeUserInformationDto == null)
+            {
+                return BadRequest("Invalid id or user data");
+            }
 
-        if (existingUser == null)
+            var user = await _usersService.GetById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Upload image if provided
+            if (image != null)
+            {
+                var imageUrl = await _imageUploadService.UploadImageAsync(image);
+                user.ProfilePhotoUrl = imageUrl;
+            }
+
+            // Map remaining user information
+            _mapper.Map(completeUserInformationDto, user);
+
+            await _usersService.Update(user);
+            return NoContent();
+        }
+
+
+        [Authorize(Policy = "Usuario")]
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateUserInformation(int id, UserUpdateDTO updateUserDto) //actualiza los datos por llenar.
         {
-            return NotFound();
+            if (id <= 0 || updateUserDto == null)
+            {
+                return BadRequest("Invalid id or user data");
+            }
+
+            var user = await _usersService.GetById(id);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Map only the properties that are not null in updateUserDto to the user entity
+            _mapper.Map(updateUserDto, user);
+
+            await _usersService.Update(user);
+            return NoContent();
         }
-        existingUser.IdUser = existingUser.IdUser;
-        existingUser.Description = userUpdateDto.Description;
-        existingUser.PhoneNumber = userUpdateDto.PhoneNumber;
-        existingUser.ProfilePhotoUrl = userUpdateDto.ProfilePhotoUrl;
 
-        //TODO: ADD VALIDATIONS - AFTER.
-        await _usersService.Update(existingUser);
 
-        return NoContent();
-    }
-    catch (Exception)
-    {
-        
-        return StatusCode(500, "Internal server error");
-    }
-        }
-
-        // [HttpDelete("{id}")]
-        // public async Task<IActionResult> Delete( int id )  
-        // {
-        //     await _usersService.Delete(id);
-        //     return NoContent();
-        // }
     }
 }
