@@ -9,6 +9,6 @@ public class CompleteUserInformationDTO //Estos son los datos por llenar
     public string? LastName { get; set; }
     public string? Description { get; set; }
     public long? PhoneNumber { get; set; }
-    public string? ProfilePhotoUrl { get; set; }
     public byte? Genderu { get; set; }
+    public IFormFile? Image { get; set; } // Agrega esta propiedad para la imagen
 }
