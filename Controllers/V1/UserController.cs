@@ -115,7 +115,6 @@ namespace StudentHive.Controllers.V1
             return NoContent();
         }
 
-
         [Authorize(Policy = "Usuario")]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateUserInformation(int id, UserUpdateDTO updateUserDto) //actualiza los datos por llenar.
