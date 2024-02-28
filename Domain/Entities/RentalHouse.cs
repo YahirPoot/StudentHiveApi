@@ -31,19 +31,19 @@ public partial class RentalHouse
 
     public int? IdUser { get; set; }
 
-    public virtual HouseService? IdHouseServiceNavigation { get; set; }
+    public virtual HouseService? IdHouseServiceNavigation { get; set; } // Se usa para crear 
 
-    public virtual Location? IdLocationNavigation { get; set; }
+    public virtual Location? IdLocationNavigation { get; set; } // Se usa para crear 
 
-    public virtual RentalHouseDetail? IdRentalHouseDetailNavigation { get; set; }
+    public virtual RentalHouseDetail? IdRentalHouseDetailNavigation { get; set; } // Se usa para crear 
 
-    public virtual ReportType? IdTypeReportNavigation { get; set; }
+    public virtual ReportType? IdTypeReportNavigation { get; set; } //solo lo verá el admin
 
-    public virtual User? IdUserNavigation { get; set; }
+    public virtual User? IdUserNavigation { get; set; } // Se usa para crear
 
-    public virtual ICollection<Image> Images { get; set; } = new List<Image>();
+    public virtual ICollection<Image> Images { get; set; } = new List<Image>(); //se usa para crear
 
-    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>(); //se usa para crear
 
-    public virtual ICollection<Report> IdReport { get; set; } = new List<Report>();
+    public virtual ICollection<Report> IdReport { get; set; } = new List<Report>(); //solo lo verá el admin
 }
